@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bansani</title>
+    <style>
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+        .category {
+            flex: 1 1 300px;
+            min-width: 300px;
+        }
+        fieldset {
+            border: none;
+            padding: 0;
+            margin: 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Selecciona de las categorias tus intereses</h1>
+    <div class="categories">
+        <div class="category">
+            <details closed class="Lugar">
+                <summary>Lugar</summary>
+                <fieldset class="LVL1">
+                    ¿Te interesa conectar tu espacio con un área verde?
+                    <label>
+                        <input type="radio" name="Lugar">
+                        SI
+                    </label>
+                    <label>
+                        <input type="radio" name="Lugar" checked>
+                        NO
+                    </label>
+                </fieldset>
+
+                <fieldset class="LVL2">
+                    Quieres que tu lugar de area verde sea usado por la comunidad?
+                    <label>
+                        <input type="radio" name="lugar_comunidad">
+                        SI
+                    </label>
+                    <label>
+                        <input type="radio" name="lugar_comunidad" checked>
+                        NO
+                    </label>
+                </fieldset>
+            </details>
+            <details closed class = "Energia">
+                <summary>Energía</summary>
+                <fieldset class="LVL1">
+                        ¿Te interesa ahorrar energia?
+                    <label>
+                        <input type="radio" name="energia">
+                        SI
+                    </label>
+                    <label>
+                        <input type="radio" name="energia">
+                        NO
+                    </label>
+                </fieldset>
+            </details>
+            <details closed class = "Gestion">
+                <summary>Gestion y Mantenimiento</summary>
+                <fieldset class = "LVL3">
+                ¿Te interesa conectar tu espacio con un área verde?
+                    <label>
+                        <input type="radio" name="comunidad">
+                        Si
+                    </label>
+                    <label>
+                        <input type="radio" name="comunidad">
+                        No
+                    </label>
+                </fieldset>
+            </details>
+            <details closed class = "Educacion">
+                <summary>Educación</summary>
+                <fieldset class = "LVL1">
+                ¿Te interesa conectar tu espacio con un área verde?
+                    <label>
+                        <input type="radio" name="Educacion">
+                        Si
+                    </label>
+                    <label>
+                        <input type="radio" name="Educacion">
+                        No
+                    </label>
+                </fieldset>
+            </details>
+        </div>
+        <div class="category">
+            <details closed class = "Comunidad">
+                <summary>Comunidad</summary>
+                <fieldset class = "LVL1">
+                    ¿Te interesa conectar tu espacio con un área verde?
+                    
+                    <label>
+                        <input type="radio" name="Comunidad">
+                        Si
+                    </label>
+                    <label>
+                        <input type="radio" name="Comunidad">
+                        No
+                    </label>
+                </fieldset>
+            </details>
+            <details closed class = "Agua">
+                <summary>Agua</summary>
+                <fieldset class = "LVL2">
+                    ¿Te interesa conectar tu espacio con un área verde?
+                    
+                    <label>
+                        <input type="radio" name="Agua">
+                        Si
+                    </label>
+                    <label>
+                        <input type="radio" name="Agua">
+                        No
+                    </label>
+                </fieldset>
+            </details>
+            <details closed class = "Salud">
+                <summary>Salud y Felicidad</summary>
+                <fieldset class = "LVL1">
+                ¿Te interesa conectar tu espacio con un área verde?
+                    <label>
+                        <input type="radio" name="Salud">
+                        Si
+                    </label>
+                    <label>
+                        <input type="radio" name="Salud">
+                        No
+                    </label>
+                </fieldset>
+            </details>
+            <details closed class = "Materiales">
+                <summary>Materiales y Construccion amigables</summary>
+                <fieldset class = "LVL2">
+                ¿Te interesa conectar tu espacio con un área verde?
+                    <label>
+                        <input type="radio" name="Materiales">
+                        Si
+                    </label>
+                    <label>
+                        <input type="radio" name="Materiales">
+                        No
+                    </label>
+                </fieldset>
+            </details>
+            
+            
+        </div>
+    </div>
+</body>
+<script src="script.js"></script>
+</html>
