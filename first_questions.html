@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnostico Gratuito</title>
+    <style>
+        body {
+            font-family: 'Montserrat', Arial, sans-serif;
+            background: #fafafa;
+            margin: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 32px auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            padding: 32px 24px 24px 24px;
+        }
+        .logo {
+            display: block;
+            margin: 0 auto 16px auto;
+            width: 180px;
+        }
+        h1 {
+            font-size: 1.3rem;
+            text-align: center;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .question-block {
+            margin-bottom: 24px;
+        }
+        .question-label {
+            font-weight: 500;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .options {
+            display: flex;
+            gap: 24px;
+            margin-top: 4px;
+        }
+        .options label {
+            font-weight: 400;
+            cursor: pointer;
+        }
+        .submit-btn {
+            width: 100%;
+            background: #1846a3;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 6px;
+            padding: 16px 0;
+            margin-top: 24px;
+            cursor: pointer;
+            letter-spacing: 1px;
+        }
+        .submit-btn:hover {
+            background: #143a85;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Responde las siguientes preguntas<br>para crear tu diagnóstico gratuito</h1>
+        <div class="progress-bar-bg">
+            <div class="progress-bar"></div>
+        </div>
+        <form>
+            <div class="question-block">
+                <label class="question-label">
+                    ¿Cuenta con áreas abiertas (jardines, canchas, estacionamientos, etc.) donde le interese implementar acciones de sostenibilidad?*
+                </label>
+                <div class="options">
+                    <label><input type="radio" name="abiertas" value="si" required> Sí</label>
+                    <label><input type="radio" name="abiertas" value="no"> No</label>
+                </div>
+            </div>
+            <div class="question-block">
+                <label class="question-label">
+                    ¿Le interesa implementar acciones de sostenibilidad (trabajar, interactuar, organizarse) con sus vecinos?*
+                </label>
+                <div class="options">
+                    <label><input type="radio" name="vecinos" value="si" required> Sí</label>
+                    <label><input type="radio" name="vecinos" value="no"> No</label>
+                </div>
+            </div>
+            <div class="question-block">
+                <label class="question-label">
+                    ¿Le interesa construir o remodelar algún espacio?*
+                </label>
+                <div class="options">
+                    <label><input type="radio" name="remodelar" value="si" required> Sí</label>
+                    <label><input type="radio" name="remodelar" value="no"> No</label>
+                </div>
+            </div>
+            <div class="question-block">
+                <label class="question-label">
+                    ¿Le interesa reducir la cantidad de agua que consume actualmente?*
+                </label>
+                <div class="options">
+                    <label><input type="radio" name="agua" value="si" required> Sí</label>
+                    <label><input type="radio" name="agua" value="no"> No</label>
+                </div>
+            </div>
+            <div class="question-block">
+                <label class="question-label">
+                    ¿Le interesa aumentar la información sobre el tema de sostenibilidad para dominio de sus colaboradores?*
+                </label>
+                <div class="options">
+                    <label><input type="radio" name="informacion" value="si" required> Sí</label>
+                    <label><input type="radio" name="informacion" value="no"> No</label>
+                </div>
+            </div>
+            <div class="question-block">
+                <label class="question-label">
+                    ¿Le interesa generar objetivos de mejora para la operación y el mantenimiento de su inmueble?*
+                </label>
+                <div class="options">
+                    <label><input type="radio" name="objetivos" value="si" required> Sí</label>
+                    <label><input type="radio" name="objetivos" value="no"> No</label>
+                </div>
+            </div>
+            <div class="question-block">
+                <label class="question-label">
+                    ¿Le interesa mejorar la calidad del interior de su espacio?*
+                </label>
+                <div class="options">
+                    <label><input type="radio" name="calidad" value="si" required> Sí</label>
+                    <label><input type="radio" name="calidad" value="no"> No</label>
+                </div>
+            </div>
+            <div class="question-block">
+                <label class="question-label">
+                    ¿Le interesa reducir su consumo eléctrico?*
+                </label>
+                <div class="options">
+                    <label><input type="radio" name="electrico" value="si" required> Sí</label>
+                    <label><input type="radio" name="electrico" value="no"> No</label>
+                </div>
+            </div>
+            <button type="submit" class="submit-btn">AVANZAR</button>
+        </form>
+    </div>
+</body>
+</html>
