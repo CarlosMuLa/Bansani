@@ -1,10 +1,23 @@
 document.addEventListener('DOMContentLoaded', () => {
+
+    //get url categories
+
     const serviceCost = {"LVL1": 1, "LVL2": 2, "LVL3": 4};
     const allFieldsets = document.querySelectorAll('.categories details fieldset');
 
     // Guarda el historial de selecciones por grupo
     const selectedHistory = {};
+    const params = new URLSearchParams(window.location.search);
+    const categoriasParam = params.get('categorias');
+    const categoriasSeleccionadas = categoriasParam ? categoriasParam.split("+") : [];
+    console.log('Categorías seleccionadas:', categoriasSeleccionadas);
 
+    document.querySelectorAll('.categories details').forEach(detail => {
+        const categoria = detail.getAttribute('data-categoria');
+        if (categoriasSeleccionadas.includes(categoria)) {
+           detail.remove();
+        }
+    });
     // Obtiene los servicios seleccionados y sus niveles
     function getSelectedServices() {
         const selectedServices = [];
