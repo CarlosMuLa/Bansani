@@ -9,15 +9,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const selectedHistory = {};
     const params = new URLSearchParams(window.location.search);
     const categoriasParam = params.get('categorias');
-    const categoriasSeleccionadas = categoriasParam ? categoriasParam.split("+") : [];
+    console.log('Parámetro categorías:', categoriasParam);
+    const categoriasSeleccionadas = categoriasParam ? categoriasParam.split(" ") : [];
     console.log('Categorías seleccionadas:', categoriasSeleccionadas);
 
-    document.querySelectorAll('.categories details').forEach(detail => {
-        const categoria = detail.getAttribute('data-categoria');
-        if (categoriasSeleccionadas.includes(categoria)) {
-           detail.remove();
-        }
-    });
+    const categoriesContainer = document.querySelector('.categories');
+    console.log('Contenedor de categorías:', categoriesContainer);
+    if (categoriesContainer) {
+        categoriesContainer.querySelectorAll('.category details').forEach(detail => {
+            const categoria = detail.getAttribute('data-categories');
+            console.log('Procesando categoría:', categoria);
+           
+            // Oculta las categorías que NO están seleccionadas
+            if (!categoriasSeleccionadas.includes(categoria)) {
+                detail.style.display = 'none';
+            }
+        });
+    }
     // Obtiene los servicios seleccionados y sus niveles
     function getSelectedServices() {
         const selectedServices = [];
