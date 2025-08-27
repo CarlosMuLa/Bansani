@@ -1,67 +1,67 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    //get url categories
-
     const serviceCost = {"LVL1": 1, "LVL2": 2, "LVL3": 4};
     const allFieldsets = document.querySelectorAll('.categories details fieldset');
-
-    // Guarda el historial de selecciones por grupo
     const selectedHistory = {};
+
     const params = new URLSearchParams(window.location.search);
     const categoriasParam = params.get('categorias');
-    console.log('Parámetro categorías:', categoriasParam);
     const categoriasSeleccionadas = categoriasParam ? categoriasParam.split(" ") : [];
-    console.log('Categorías seleccionadas:', categoriasSeleccionadas);
 
     const categoriesContainer = document.querySelector('.categories');
-    console.log('Contenedor de categorías:', categoriesContainer);
     if (categoriesContainer) {
         categoriesContainer.querySelectorAll('.category details').forEach(detail => {
             const categoria = detail.getAttribute('data-categories');
-            console.log('Procesando categoría:', categoria);
-           
-            // Oculta las categorías que NO están seleccionadas
-            if (!categoriasSeleccionadas.includes(categoria)) {
-                detail.style.display = 'none';
-            }
+            detail.style.display = categoriasSeleccionadas.length === 0 || categoriasSeleccionadas.includes(categoria)
+                ? ''
+                : 'none';
         });
+
+        // Oculta columnas vacías
+        categoriesContainer.querySelectorAll('.category').forEach(cat => {
+            const visible = Array.from(cat.querySelectorAll('details')).some(d => d.style.display !== 'none');
+            cat.style.display = visible ? '' : 'none';
+            if (visible) cat.style.flex = '';
+        });
+
+        const visibles = categoriesContainer.querySelectorAll('.category:not([style*="display: none"])');
+        if (visibles.length === 1) {
+            visibles[0].style.flex = '1 1 100%';
+        }
     }
-    // Obtiene los servicios seleccionados y sus niveles
+
     function getSelectedServices() {
-        const selectedServices = [];
+        // Limpia historial previo
+        for (const k in selectedHistory) delete selectedHistory[k];
+
         allFieldsets.forEach(fieldset => {
             const firstRadio = fieldset.querySelector('input[type="radio"]');
             if (!firstRadio) return;
             const name = firstRadio.name;
             const selected = fieldset.querySelector(`input[type="radio"][name="${name}"]:checked`);
             const category = fieldset.closest('details')?.querySelector('summary')?.textContent?.trim() || 'Sin categoría';
-            const nivel = fieldset.className; // LVL1, LVL2, LVL3
+            const nivel = fieldset.className;
 
-            // Si la respuesta es "No", no la agregues pero conserva el historial
             if (selected) {
-                const respuesta = selected.nextSibling.textContent.trim();
-                if (respuesta.toLowerCase() !== "no") {
+                const respuesta = (selected.nextSibling?.textContent || '').trim();
+                if (respuesta.toLowerCase() !== 'no') {
                     selectedHistory[name] = {
                         categoria: category,
                         grupo: name,
-                        respuesta: respuesta,
-                        nivel: nivel,
+                        respuesta,
+                        nivel,
                         costo: serviceCost[nivel] || 1
                     };
                 }
             }
         });
-
-        // Devuelve todos los servicios guardados en el historial
         return Object.values(selectedHistory);
     }
 
-    // Distribuye los servicios por mes según el costo máximo permitido
     function distributeServicesByMonth(services, maxCostPerMonth = 4) {
         const months = [];
         let currentMonth = [];
         let currentCost = 0;
-
         services.forEach(service => {
             if (currentCost + service.costo > maxCostPerMonth) {
                 months.push(currentMonth);
@@ -71,11 +71,10 @@ document.addEventListener('DOMContentLoaded', () => {
             currentMonth.push(service);
             currentCost += service.costo;
         });
-        if (currentMonth.length > 0) months.push(currentMonth);
+        if (currentMonth.length) months.push(currentMonth);
         return months;
     }
 
-    // Genera la tabla en HTML
     function renderTable(months) {
         let html = `<table border="1"><tr><th>Mes</th><th>Servicios</th></tr>`;
         months.forEach((month, idx) => {
@@ -89,24 +88,24 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.insertAdjacentHTML('beforeend', html);
     }
 
-    // Cuando cambie una selección, actualiza la tabla
-    function updateResults() {
-        // Elimina tablas previas
+    function updateResults(services = []) {
         document.querySelectorAll('table').forEach(t => t.remove());
-        const selectedServices = getSelectedServices();
-        // Opcional: ordenar por nivel para priorizar LVL2 y LVL1
-        selectedServices.sort((a, b) => serviceCost[b.nivel] - serviceCost[a.nivel]);
-        const months = distributeServicesByMonth(selectedServices, 4);
+        services.sort((a, b) => serviceCost[b.nivel] - serviceCost[a.nivel]);
+        const months = distributeServicesByMonth(services, 4);
         renderTable(months);
     }
 
-    // Listeners
+    function refresh() {
+        const services = getSelectedServices();
+        updateResults(services);
+    }
+
     allFieldsets.forEach(fieldset => {
         fieldset.querySelectorAll('input[type="radio"]').forEach(radio => {
-            radio.addEventListener('change', updateResults);
+            radio.addEventListener('change', refresh);
         });
     });
 
-    // Inicializa la tabla al cargar
-    updateResults();
+    // Init
+    refresh();
 });
