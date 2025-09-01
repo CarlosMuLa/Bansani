@@ -23,6 +23,200 @@
             display: block;
             margin-bottom: 0;
         }
+
+        /* ==== NUEVOS ESTILOS ECO PARA LAS PREGUNTAS ==== */
+
+        body {
+            background: linear-gradient(180deg,#f6fbf8 0%, #ffffff 260px);
+            font-family: system-ui, Arial, sans-serif;
+            color:#193a29;
+        }
+
+        h1 {
+            font-size:28px;
+            font-weight:700;
+            margin:28px 0 30px;
+            text-align:center;
+            color:#165a33;
+            letter-spacing:.5px;
+        }
+
+        .categories {
+            align-items:flex-start;
+        }
+
+        .categories details {
+            background:#ffffff;
+            border:1px solid #d7e9dd;
+            border-radius:18px;
+            padding:0;
+            box-shadow:0 3px 8px -3px rgba(0,0,0,.08);
+            transition:.35s;
+            position:relative;
+        }
+        .categories details:hover {
+            box-shadow:0 6px 16px -4px rgba(0,0,0,.12);
+        }
+
+        .categories details summary {
+            list-style:none;
+            cursor:pointer;
+            font-size:17px;
+            font-weight:600;
+            padding:16px 56px 16px 20px;
+            border-radius:18px;
+            background:linear-gradient(90deg,#1d6a3d,#249153);
+            color:#fff;
+            position:relative;
+            user-select:none;
+        }
+        .categories details summary::-webkit-details-marker { display:none; }
+
+        .categories details summary::before {
+            content:"🌿";
+            margin-right:8px;
+            filter:drop-shadow(0 1px 2px rgba(0,0,0,.25));
+        }
+        .categories details summary::after {
+            content:"";
+            position:absolute;
+            top:50%;
+            right:18px;
+            width:12px;
+            height:12px;
+            border:2px solid #fff;
+            border-left:0;
+            border-top:0;
+            transform:translateY(-60%) rotate(45deg);
+            transition:.35s;
+        }
+        .categories details[open] summary::after {
+            transform:translateY(-40%) rotate(225deg);
+        }
+        .categories details[open] summary {
+            border-bottom-left-radius:0;
+            border-bottom-right-radius:0;
+        }
+
+        .categories details[open] {
+            border-color:#c2e4cf;
+        }
+
+        .categories details > fieldset {
+            display:block;
+            margin:0 0 0;
+            padding:0;
+        }
+
+        /* Contenedor interno de preguntas */
+        .categories details[open] {
+            padding-bottom:10px;
+        }
+
+        .categories details[open] fieldset {
+            margin:18px 18px 0;
+        }
+
+        /* Tarjeta de cada pregunta */
+        fieldset.LVL1,
+        fieldset.LVL2,
+        fieldset.LVL3 {
+            background:#ffffff;
+            border:1px solid #dce9e1;
+            border-left:6px solid #55b56e;
+            border-radius:14px;
+            padding:14px 16px 12px;
+            position:relative;
+            font-size:14px;
+            line-height:1.45;
+            box-shadow:0 2px 4px rgba(0,0,0,.05);
+            transition:.35s;
+        }
+        fieldset.LVL2 { border-left-color:#2f8e4d; }
+        fieldset.LVL3 { border-left-color:#1c5d38; }
+
+        fieldset.LVL1:hover,
+        fieldset.LVL2:hover,
+        fieldset.LVL3:hover {
+            box-shadow:0 4px 12px -2px rgba(0,0,0,.10);
+            transform:translateY(-2px);
+        }
+
+        fieldset.LVL1 p,
+        fieldset.LVL2 p,
+        fieldset.LVL3 p {
+            margin:0 0 10px;
+            font-weight:600;
+            color:#1f462f;
+        }
+
+        /* Texto directo (cuando no usan <p>) */
+        fieldset.LVL1 > :first-child,
+        fieldset.LVL2 > :first-child,
+        fieldset.LVL3 > :first-child {
+            /* fallback por si es texto suelto */
+        }
+
+        /* Opciones */
+        fieldset label {
+            display:inline-flex;
+            align-items:center;
+            gap:6px;
+            margin:4px 8px 4px 0;
+            padding:6px 14px 6px 12px;
+            background:#f0f8f3;
+            border:1px solid #c6e7d2;
+            border-radius:30px;
+            font-size:13px;
+            font-weight:600;
+            letter-spacing:.3px;
+            color:#195432;
+            cursor:pointer;
+            line-height:1.2;
+            transition:.25s;
+            user-select:none;
+        }
+        fieldset label:hover {
+            background:#e3f5e8;
+            border-color:#b3ddc3;
+        }
+
+        fieldset label input[type=radio] {
+            accent-color:#24894d;
+            transform:scale(1.05);
+            margin:0 2px 0 0;
+        }
+
+        /* Estado seleccionado (usa :has para navegadores modernos) */
+        fieldset label:has(input[type=radio]:checked) {
+            background:linear-gradient(90deg,#1f7a44,#2fa35d);
+            color:#fff;
+            border-color:#1f7a44;
+            box-shadow:0 0 0 2px #d6f3e2;
+        }
+
+        /* Fallback sin :has (aún se ve aceptable) */
+
+        /* Animación al abrir */
+        .categories details[open] fieldset {
+            animation:fadeSlide .45s ease;
+        }
+        @keyframes fadeSlide {
+            from { opacity:0; transform:translateY(6px);}
+            to { opacity:1; transform:translateY(0);}
+        }
+
+        /* Responsive */
+        @media (max-width:900px){
+            .categories { gap:28px; }
+            .categories details summary { font-size:16px; padding:14px 50px 14px 18px; }
+            fieldset.LVL1, fieldset.LVL2, fieldset.LVL3 { font-size:13px; padding:12px 14px 10px; }
+            fieldset label { font-size:12px; padding:6px 12px 6px 10px; }
+        }
+        @media (max-width:600px){
+            h1 { font-size:23px; }
+            .category { flex:1 1 100%; }
+        }
     </style>
 </head>
 <body>
@@ -32,20 +226,20 @@
             <details closed class="Lugar" data-categories="Lugar">
                 <summary>Lugar</summary>
                 <fieldset class="LVL1" data-services="L.01.1, C.01.2, L.01.3">
-                    <p>¿Tiene el objetivo de mejorar la relación entre el proyecto y el contexto inmediato que lo rodea al reducir el impacto ambiental del proyecto?</p> 
+                    <p>¿Tiene el objetivo de mejorar la relación entre el proyecto y el contexto inmediato que lo rodea al reducir el impacto ambiental del proyecto?</p> <br>
                     <label><input type="radio" name="Lugar1">SI</label>
                     <label><input type="radio" name="Lugar1" checked>NO</label>
                 </fieldset>
-                <fieldset class="LVL1" data-services="C.05, C.06">
-Tiene el objetivo de unir zonas naturales importantes, disminuyendo el impacto del proyecto en el espacio.
+                <fieldset class="LVL1" data-services="L.02.1, L.02.2">
+Tiene el objetivo de unir zonas naturales importantes, disminuyendo el impacto del proyecto en el espacio. <br>
                     <label>
                         <input type="radio" name="Lugar2">SI</label>
                     <label>
                         <input type="radio" name="Lugar2" checked>NO</label>
                 </fieldset>
 
-                <fieldset class="LVL2">
-Tiene el objetivo de mejorar los microclimas mediante la reducción de las islas de calor.                    
+                <fieldset class="LVL2" data-services="L.03.1, L.03.2">
+Tiene el objetivo de mejorar los microclimas mediante la reducción de las islas de calor.     <br>               
                     <label>
                         <input type="radio" name="Lugar3">SI
                     </label>
@@ -54,8 +248,8 @@ Tiene el objetivo de mejorar los microclimas mediante la reducción de las islas
                     </label>
                 </fieldset>
 
-                <fieldset class="LVL2">
-Tiene el objetivo de mejorar los microclimas mediante la reducción de las islas de calor.                    
+                <fieldset class="LVL1" data-services="L.04.1, L.04.2">
+Tiene el objetivo de disminuir el consumo energético al iluminar solo necesario, cuando sea necesario con la intensidad necesaria. <br>
                     <label>
                         <input type="radio" name="Lugar4">SI
                     </label>
@@ -64,8 +258,8 @@ Tiene el objetivo de mejorar los microclimas mediante la reducción de las islas
                         NO
                     </label>
                 </fieldset>
-                <fieldset class="LVL2">
-Tiene el objetivo de disminuir el consumo energético al iluminar solo necesario, cuando sea necesario con la intensidad necesaria.
+                <fieldset class="LVL1" data-services="L.05.1, L.05.2">
+Tiene el objetivo de mejorar la calidad del transporte para el personal y así poder garantizar un acceso adecuado al servicio que pueda cumplir con la oferta, demanda y seguridad para que puedan realizar las rutas sin ningún problema. <br>
                     <label>
                         <input type="radio" name="Lugar5">
                         SI
@@ -75,8 +269,8 @@ Tiene el objetivo de disminuir el consumo energético al iluminar solo necesario
                         NO
                     </label>
                 </fieldset>
-                <fieldset class="LVL2">
-Tiene el objetivo de mejorar la calidad del transporte para el personal y así poder garantizar un acceso adecuado al servicio que pueda cumplir con la oferta, demanda y seguridad para que puedan realizar las rutas sin ningún problema. 
+                <fieldset class="LVL1" data-services="L.06.1, L.06.2">
+Tiene el objetivo de analizar la cantidad de estacionamientos con los que cuenta el proyecto y los que requiere para así poder cubrir con lo necesario o disminuir la cantidad con la que se cuenta. <br>
                     <label>
                         <input type="radio" name="Lugar6">
                         SI
@@ -86,8 +280,8 @@ Tiene el objetivo de mejorar la calidad del transporte para el personal y así p
                         NO
                     </label>
                 </fieldset>
-                <fieldset class="LVL2">
-Tiene el objetivo de analizar la cantidad de estacionamientos con los que cuenta el proyecto y los que requiere para así poder cubrir con lo necesario o disminuir la cantidad con la que se cuenta.
+                <fieldset class="LVL1" data-services="L.07.1, L.07.2, L.07.3">
+Tiene el objetivo de identificar áreas que se encuentren contaminadas o en mal estado, realizar un trabajo de recuperación para un funcionamiento adecuado. <br>
                     <label>
                         <input type="radio" name="Lugar7">
                         SI
@@ -97,8 +291,8 @@ Tiene el objetivo de analizar la cantidad de estacionamientos con los que cuenta
                         NO
                     </label>
                 </fieldset>
-                <fieldset class="LVL2">
-Tiene el objetivo de identificar áreas que se encuentren contaminadas o en mal estado, realizar un trabajo de recuperación para un funcionamiento adecuado.
+                <fieldset class="LVL1">
+Tiene el objetivo que los proyectos tomen en cuenta la universalidad de las personas y considere alternativas seguras e inclusivas para todos los usuarios. <br>
                     <label>
                         <input type="radio" name="Lugar8">
                         SI
@@ -109,7 +303,7 @@ Tiene el objetivo de identificar áreas que se encuentren contaminadas o en mal 
                     </label>
                 </fieldset>
                 <fieldset class="LVL2">
-Tiene el objetivo que los proyectos tomen en cuenta la universalidad de las personas y considere alternativas seguras e inclusivas para todos los usuarios.
+Tiene el objetivo que los proyectos cuenten con lotificación con orientación óptima y densidad permitida. <br>
                     <label>
                         <input type="radio" name="Lugar9">
                         SI
@@ -119,22 +313,12 @@ Tiene el objetivo que los proyectos tomen en cuenta la universalidad de las pers
                         NO
                     </label>
                 </fieldset>
-                <fieldset class="LVL2">
-Tiene el objetivo que los proyectos cuenten con lotificación con orientación óptima y densidad permitida.
-                    <label>
-                        <input type="radio" name="Lugar10">
-                        SI
-                    </label>
-                    <label>
-                        <input type="radio" name="Lugar" checked>
-                        NO
-                    </label>
-                </fieldset>
             </details>
             <details closed class = "Energia" data-categories="Energia">
                 <summary>Energía</summary>
-                <fieldset class="LVL1">
-Tiene el objetivo de aprovechar al máximo lo que nos ofrece el entorno a través del diseño para disminuir el consumo energético.                    <label>
+                <fieldset class="LVL3" data-services="E.01.1, E.01.2, E.01.3, E.01.4">
+Tiene el objetivo de aprovechar al máximo lo que nos ofrece el entorno a través del diseño para disminuir el consumo energético. <br>
+                   <label>
                         <input type="radio" name="Energia1">
                         SI
                     </label>
@@ -143,8 +327,8 @@ Tiene el objetivo de aprovechar al máximo lo que nos ofrece el entorno a travé
                         NO
                     </label>
                 </fieldset>
-                <fieldset class="LVL1">
-Tiene el objetivo de generar espacios de confort aprovechando al máximo la iluminación y ventilación natural.
+                <fieldset class="LVL3" data-services="E.02.1">
+Tiene el objetivo de generar espacios de confort aprovechando al máximo la iluminación y ventilación natural. <br>
                     <label>
                         <input type="radio" name="Energia2">
                         SI
@@ -154,8 +338,8 @@ Tiene el objetivo de generar espacios de confort aprovechando al máximo la ilum
                         NO
                     </label>
                 </fieldset>
-                <fieldset class="LVL1">
-Tiene el objetivo de establecer acciones de mejora para los sistemas que modifican el consumo energético.
+                <fieldset class="LVL3" data-services="E.03.1, E.03.2">
+Tiene el objetivo de establecer acciones de mejora para los sistemas que modifican el consumo energético. <br>
                     <label>
                         <input type="radio" name="Energia3">
                         SI
@@ -165,8 +349,8 @@ Tiene el objetivo de establecer acciones de mejora para los sistemas que modific
                         NO
                     </label>
                 </fieldset>
-                <fieldset class="LVL1">
-Tiene el objetivo de conocer el consumo de energía en el proyecto a través de un análisis de comportamiento y diseño.
+                <fieldset class="LVL3" data-services="E.04.1, E.04.2, E.04.3">
+Tiene el objetivo de conocer el consumo de energía en el proyecto a través de un análisis de comportamiento y diseño. <br>
                     <label>
                         <input type="radio" name="Energia4">
                         SI
@@ -176,8 +360,8 @@ Tiene el objetivo de conocer el consumo de energía en el proyecto a través de 
                         NO
                     </label>
                 </fieldset>
-                <fieldset class="LVL1">
-Tiene el objetivo de conocer el consumo energético de los equipos a través de un registro mensual.
+                <fieldset class="LVL3" data-services="E.05.1">
+Tiene el objetivo de conocer el consumo energético de los equipos a través de un registro mensual. <br>
                     <label>
                         <input type="radio" name="Energia5">
                         SI
@@ -187,8 +371,8 @@ Tiene el objetivo de conocer el consumo energético de los equipos a través de 
                         NO
                     </label>
                 </fieldset>
-                <fieldset class="LVL1">
-Tiene el objetivo de implementar tecnologías de energía renovable para disminuir o eliminar las emisiones de contaminantes a la atmósfera por la demanda eléctrica.
+                <fieldset class="LVL2" data-services="E.06.1, E.06.2, E.06.3">
+Tiene el objetivo de implementar tecnologías de energía renovable para disminuir o eliminar las emisiones de contaminantes a la atmósfera por la demanda eléctrica. <br>
                     <label>
                         <input type="radio" name="Energia6">
                         SI
@@ -198,8 +382,10 @@ Tiene el objetivo de implementar tecnologías de energía renovable para disminu
                         NO
                     </label>
                 </fieldset>
-                <fieldset class="LVL1">
+                <fieldset class="LVL1" data-services="E.07.1, E.07.2">
+                    <br>
 Tiene el objetivo de incentivar el uso de vehículos verdes, al proporcionar espacios exclusivos para su carga.
+<br>
                     <label>
                         <input type="radio" name="Energia7">
                         SI
@@ -209,8 +395,9 @@ Tiene el objetivo de incentivar el uso de vehículos verdes, al proporcionar esp
                         NO
                     </label>
                 </fieldset>
-                <fieldset class="LVL1">
+                <fieldset class="LVL3" data-services="E.08.1">
 Tiene el objetivo de reducir la carga energética a través de la conservación (usar solo lo que se necesita) y la eficiencia; y cumplir con la carga restante a través de la generación de energía renovable en el sitio.
+                    <br>
                     <label>
                         <input type="radio" name="Energia8">
                         SI
@@ -226,7 +413,7 @@ Tiene el objetivo de reducir la carga energética a través de la conservación 
                 <fieldset class = "LVL1">
                 Tiene el objetivo de conocer la situación actual y futura del proyecto de cada uno de los indicadores manejados en el sello para poder discernir los objetivos y estrategias para poder lograr un proyecto en cualquiera de sus etapas.
                     
-                
+                <br>
                 <label>
                         <input type="radio" name="Gestion1">
                         Si
@@ -238,7 +425,7 @@ Tiene el objetivo de reducir la carga energética a través de la conservación 
                 </fieldset>
                 <fieldset class = "LVL1">
 Tiene el objetivo de demostrar el correcto funcionamiento y supervisión de las acciones implementadas en el proyecto al desarrollar un plan maestro del sitio para fomentar la mantención de sus características de aporte medioambiental, económico y social en el tiempo.                    
-                
+                <br>
                 <label>
                         <input type="radio" name="Gestion2">
                         Si
@@ -250,7 +437,7 @@ Tiene el objetivo de demostrar el correcto funcionamiento y supervisión de las 
                 </fieldset>
                 <fieldset class = "LVL1">
 Tiene el objeo de proporcionar un sistema ordenado y eficiente para la gestión, funcionamiento y mantenimientos de las áreas y recursos involucrados en el proyecto.                    
-                
+                <br>
                 <label>
                         <input type="radio" name="Gestion3">
                         Si
@@ -263,8 +450,9 @@ Tiene el objeo de proporcionar un sistema ordenado y eficiente para la gestión,
             </details>
             <details closed class = "Educacion" data-categories="Educacion">
                 <summary>Educación</summary>
-                <fieldset class = "LVL1">
+                <fieldset class = "LVL2" data-services="Ed.01.1, Ed.01.2">
 Tiene el objetivo de promover las competencias necesaria para cumplir con los alcances de desarrollo sostenible del proyecto.                    
+                    <br>
                     <label>
                         <input type="radio" name="Educacion1">
                         Si
@@ -275,10 +463,10 @@ Tiene el objetivo de promover las competencias necesaria para cumplir con los al
                     </label>
                 </fieldset>
 
-                <fieldset class = "LVL1">
+                <fieldset class = "LVL2" data-services="Ed.02.1, Ed.02.2">
 Tiene el objetivo de interactuar con la comunidad externa al proyecto para colaborar en el cumplimiento de los alcances de desarrollo sostenible del proyecto.
 
-                    
+                    <br>
 <label>
                         <input type="radio" name="Educacion2">
                         Si
@@ -293,8 +481,9 @@ Tiene el objetivo de interactuar con la comunidad externa al proyecto para colab
         <div class="category">
             <details closed class = "Comunidad" data-categories="Comunidad">
                 <summary>Comunidad</summary>
-                <fieldset class = "LVL1">
+                <fieldset class = "LVL1" data-services="C.01.1, C.01.2">
 Tiene el objetivo de asegurar el acceso a alimentos nutritivos, generar un espacio para el uso de compostables y proporcionar un vínculo con la tierra.                    
+                    <br>
                     <label>
                         <input type="radio" name="Comunidad1">
                         Si
@@ -304,9 +493,9 @@ Tiene el objetivo de asegurar el acceso a alimentos nutritivos, generar un espac
                         No
                     </label>
                 </fieldset>
-                <fieldset class = "LVL1">
+                <fieldset class = "LVL1" data-services="C.02.1">
 Tiene el objetivo de proporcionar alimentos nutritivos en todo momento al contar con planes de respuesta en periodos de emergencia.
-                    
+                    <br>
                     <label>
                         <input type="radio" name="Comunidad2">
                         Si
@@ -316,8 +505,9 @@ Tiene el objetivo de proporcionar alimentos nutritivos en todo momento al contar
                         No
                     </label>
                 </fieldset>
-                <fieldset class = "LVL1">
+                <fieldset class = "LVL1" data-services="C.03.1">
 Tiene el objetivo de proporcionar a los ocupantes la oportunidad de desplazarse de una manera segura sin depender del uso de vehículos móviles, donde al mismo tiempo mejoran su salud física y mental, y no generan emisiones contaminantes a la atmósfera.                    
+                    <br>
                     <label>
                         <input type="radio" name="Comunidad3">
                         Si
@@ -327,9 +517,9 @@ Tiene el objetivo de proporcionar a los ocupantes la oportunidad de desplazarse 
                         No
                     </label>
                 </fieldset>
-                <fieldset class = "LVL1">
+                <fieldset class = "LVL1" data-services="C.04.1, C.04.2">
 Tiene el objetivo de proporcionar a los ocupantes la oportunidad de desplazarse de una manera segura en bicicletas donde se mejora su salud física y mental, y no generan emisiones contaminantes a la atmósfera.
-                    
+                    <br>
                     <label>
                         <input type="radio" name="Comunidad4">
                         Si
@@ -339,9 +529,9 @@ Tiene el objetivo de proporcionar a los ocupantes la oportunidad de desplazarse 
                         No
                     </label>
                 </fieldset>
-                <fieldset class = "LVL1">
+                <fieldset class = "LVL1" data-services="C.05.1, C.05.2">
 Tiene el objetivo de reforzar el sentido de pertenencia de los ocupantes al proporcionar espacios comunes de encuentro donde el bienestar de la comunidad es el eje principal.
-                    
+                    <br>
                     <label>
                         <input type="radio" name="Comunidad5">
                         Si
@@ -351,9 +541,9 @@ Tiene el objetivo de reforzar el sentido de pertenencia de los ocupantes al prop
                         No
                     </label>
                 </fieldset>
-                <fieldset class = "LVL1">
+                <fieldset class = "LVL1" data-services="C.06.1, C.06.2, C.06.3">
 Tiene el objetivo de reforzar el sentido de pertenencia de los ocupantes al celebrar la cultura del lugar y apoyar el comercio local.
-                    
+                    <br>
                     <label>
                         <input type="radio" name="Comunidad6">
                         Si
@@ -363,9 +553,9 @@ Tiene el objetivo de reforzar el sentido de pertenencia de los ocupantes al cele
                         No
                     </label>
                 </fieldset>
-                <fieldset class = "LVL1">
+                <fieldset class = "LVL1" data-services="C.07.1">
 Tiene el objetivo de generar ingresos económicos al reincorporar los residuos en el mercado, almacenando y transformando los reciclables manera segura.
-                    
+                    <br>
                     <label>
                         <input type="radio" name="Comunidad7">
                         Si
@@ -375,9 +565,9 @@ Tiene el objetivo de generar ingresos económicos al reincorporar los residuos e
                         No
                     </label>
                 </fieldset>
-                <fieldset class = "LVL1">
+                <fieldset class = "LVL1" data-services="C.08.1">
 Tiene el objetivo de eliminar la generación de residuos sólidos, disminuyendo los impactos al medioambiente de los ocupantes.
-                    
+                    <br>
                     <label>
                         <input type="radio" name="Comunidad8">
                         Si
@@ -389,7 +579,7 @@ Tiene el objetivo de eliminar la generación de residuos sólidos, disminuyendo 
                 </fieldset>
                 <fieldset class = "LVL1">
 Promover un desarrollo urbano compacto, eficiente y bien conectado que aproveche la infraestructura existente, reduzca la dispersión urbana, fomente la movilidad sostenible y mejore la calidad de vida de los residentes, de acuerdo a normas internacionales (OMS).
-                    
+                    <br>
                     <label>
                         <input type="radio" name="Comunidad9">
                         Si
@@ -402,9 +592,9 @@ Promover un desarrollo urbano compacto, eficiente y bien conectado que aproveche
             </details>
             <details closed class = "Agua" data-categories="Agua">
                 <summary>Agua</summary>
-                <fieldset class = "LVL1">
+                <fieldset class = "LVL1" data-services="A.01.1, A.01.2">
 Tiene el objetivo de reducir el consumo de agua potable en el exterior, partiendo del consumo calculado anual y comparándolo con el año siguiente.
-                    
+                    <br>
                     <label>
                         <input type="radio" name="Agua1">
                         Si
@@ -414,9 +604,9 @@ Tiene el objetivo de reducir el consumo de agua potable en el exterior, partiend
                         No
                     </label>
                 </fieldset>
-                <fieldset class = "LVL1">
+                <fieldset class = "LVL1" data-services="A.02.1, A.02.2, A.02.3, A.02.4">
 Tiene el objetivo de reducir el consumo de agua potable en el interior, partiendo del consumo calculado anual y comparándolo con el año siguiente.
-                    
+                    <br>
                     <label>
                         <input type="radio" name="Agua2">
                         Si
@@ -426,9 +616,9 @@ Tiene el objetivo de reducir el consumo de agua potable en el interior, partiend
                         No
                     </label>
                 </fieldset>
-                <fieldset class = "LVL1">
+                <fieldset class = "LVL2" data-services="A.03.1, A.03.2, A.03.3">
 Nos ayuda a tener conocimiento de la cantidad de agua que se consume, nos permite tener datos para poder detectar si los consumos son normales o no y así poder reducirlos.
-                    
+                    <br>
                     <label>
                         <input type="radio" name="Agua3">
                         Si
@@ -438,9 +628,9 @@ Nos ayuda a tener conocimiento de la cantidad de agua que se consume, nos permit
                         No
                     </label>
                 </fieldset>
-                <fieldset class = "LVL1">
+                <fieldset class = "LVL2" data-services="A.04.1, A.04.2, A.04.3, A.04.4, A.04.5, A.04.6">
 Busca cumplir con los requerimientos para poder utilizar el agua, evitar la contaminación y enfermedades para quienes la utilizan.
-                    
+                    <br>
                     <label>
                         <input type="radio" name="Agua4">
                         Si
@@ -450,9 +640,9 @@ Busca cumplir con los requerimientos para poder utilizar el agua, evitar la cont
                         No
                     </label>
                 </fieldset>
-                <fieldset class = "LVL1">
+                <fieldset class = "LVL2" data-services="A.05.1, A.05.2, A.05.3, A.05.4, A.05.5">
 Nos ayuda a buscar la posibilidad de ser autosuficientes con el consumo de agua y evitar el consumo de agua potable. Es el escenario ideal para el consumo de agua ya que generaría muchos ahorros económicos y de evitar contaminación del agua.
-                    
+                    <br>
                     <label>
                         <input type="radio" name="Agua5">
                         Si
@@ -462,8 +652,9 @@ Nos ayuda a buscar la posibilidad de ser autosuficientes con el consumo de agua 
                         No
                     </label>
                 </fieldset>
-                <fieldset class = "LVL1">
-Se busca reducir el impacto de la escorrentía pluvial en el sitio, promoviendo la infiltración, retención, tratamiento y reutilización del agua de lluvia. Se incentiva la implementación de estrategias que imiten los procesos hidrológicos naturales y contribuyan al ciclo sostenible del agua.                    
+                <fieldset class = "LVL2" data-services="A.06.1">
+Se busca reducir el impacto de la escorrentía pluvial en el sitio, promoviendo la infiltración, retención, tratamiento y reutilización del agua de lluvia. Se incentiva la implementación de estrategias que imiten los procesos hidrológicos naturales y contribuyan al ciclo sostenible del agua.
+                    <br>
                     <label>
                         <input type="radio" name="Agua6">
                         Si
@@ -476,8 +667,10 @@ Se busca reducir el impacto de la escorrentía pluvial en el sitio, promoviendo 
             </details>
             <details closed class = "Salud" data-categories="Salud">
                 <summary>Salud y Felicidad</summary>
-                <fieldset class = "LVL1">
-Tiene el objetivo de contribuir al confort y bienestar de todos los ocupantes estableciendo normas mínimas de calidad del aire interior (CAI).                    <label>
+                <fieldset class = "LVL2" data-services="S.01.1, S.01.2, S.01.3">
+Tiene el objetivo de contribuir al confort y bienestar de todos los ocupantes estableciendo normas mínimas de calidad del aire interior (CAI).
+<br>                    
+<label>
                         <input type="radio" name="Salud1">
                         Si
                     </label>
@@ -486,8 +679,9 @@ Tiene el objetivo de contribuir al confort y bienestar de todos los ocupantes es
                         No
                     </label>
                 </fieldset>
-                <fieldset class = "LVL1">
+                <fieldset class = "LVL2" data-services="S.02.1, S.02.2">
                 Tiene como objetivo evitar la presencia de humo de tabaco, vape y cannabis en espacios públicos y dentro de los establecimientos.   
+                <br>
                 <label>                  
                 <input type="radio" name="Salud2">
                         Si
@@ -497,8 +691,10 @@ Tiene el objetivo de contribuir al confort y bienestar de todos los ocupantes es
                         No
                     </label>
                 </fieldset>
-                <fieldset class = "LVL1">
-                Tiene como objetivo reducir el uso de iluminación eléctrica mediante la introducción de luz natural en el espacio.                
+                <fieldset class = "LVL2" data-services="S.03.1">
+                Tiene como objetivo reducir el uso de iluminación eléctrica mediante la introducción de luz natural en el espacio.
+
+                <br>
                 <label>
                 <input type="radio" name="Salud3">
                         Si
@@ -508,8 +704,9 @@ Tiene el objetivo de contribuir al confort y bienestar de todos los ocupantes es
                         No
                     </label>
                 </fieldset>
-                <fieldset class = "LVL1">
+                <fieldset class = "LVL2" data-services="S.04.1, S.04.2">
                 Tiene como objetivo proporcionar a los ocupantes del edificio una conexión con el entorno natural exterior mediante vistas de calidad.                
+                <br>
                 <label>
                     <input type="radio" name="Salud4">
                         Si
@@ -519,9 +716,10 @@ Tiene el objetivo de contribuir al confort y bienestar de todos los ocupantes es
                         No
                     </label>
                 </fieldset>
-                <fieldset class = "LVL1">
+                <fieldset class = "LVL2" data-services="S.05.1, S.05.2">
 Tiene el objetivo de apoyar y mejorar la salud, el bienestar y la productividad de las personas proporcionando e incorporando elementos de la naturaleza en el ambiente interior.
-                <label>
+<br>                
+<label>
                     <input type="radio" name="Salud5">
                         Si
                     </label>
@@ -530,9 +728,9 @@ Tiene el objetivo de apoyar y mejorar la salud, el bienestar y la productividad 
                         No
                     </label>
                 </fieldset>
-                <fieldset class = "LVL1">
+                <fieldset class = "LVL2" data-services="S.06.1, S.06.2">
 Tiene como objetivo que los ocupantes del edificio tengan acceso a espacios verdes y vistas hacia la naturaleza que los rodea para mejorar la comodidad y la eficiencia de las actividades.                
-
+<br>
 <label>
                     <input type="radio" name="Salud6">
                         Si
@@ -543,8 +741,9 @@ Tiene como objetivo que los ocupantes del edificio tengan acceso a espacios verd
                     </label>
                 </fieldset>
 
-                <fieldset class = "LVL1">
+                <fieldset class = "LVL1" data-services="S.07.1, S.07.2, S.07.3">
 Tiene como objetivo brindar espacios de recreación para los ocupantes del edificio y que puedan tener alternativas de actividades en tiempos libres.
+<br>
 <label>
                     <input type="radio" name="Salud7">
                         Si
@@ -555,8 +754,9 @@ Tiene como objetivo brindar espacios de recreación para los ocupantes del edifi
                     </label>
                 </fieldset>
 
-                <fieldset class = "LVL1">
+                <fieldset class = "LVL2" data-services="S.08.1, S.08.2, S.08.3">
 Tiene como objetivo brindar espacios de recreación para los ocupantes del edificio y que puedan tener alternativas de actividades en tiempos libres.
+<br>
 <label>
                     <input type="radio" name="Salud8">
                         Si
@@ -570,9 +770,9 @@ Tiene como objetivo brindar espacios de recreación para los ocupantes del edifi
             </details>
             <details closed class = "Materiales" data-categories="Materiales">
                 <summary>Materiales y Construccion amigables</summary>
-                <fieldset class = "LVL1">
+                <fieldset class = "LVL1" data-services="M.01.1">
 Tiene el objetivo de reducir las concentraciones de productos químicos contaminantes que puedan dañar la calidad del aire, la salud humana y el medio ambiente.
-
+<br>
                     <label>
                         <input type="radio" name="Materiales1">
                         Si
@@ -583,10 +783,9 @@ Tiene el objetivo de reducir las concentraciones de productos químicos contamin
                     </label>
                 </fieldset>
 
-                <fieldset class = "LVL1">
+                <fieldset class = "LVL1" data-services="M.02.1">
 Tiene el objetivo de utilizar la mayor cantidad de materiales responsables y disminuir la cantidad de materiales convencionales utilizados para la construcción.
-                    
-
+<br>                    
 <label>
                         <input type="radio" name="Materiales2">
                         Si
@@ -597,9 +796,9 @@ Tiene el objetivo de utilizar la mayor cantidad de materiales responsables y dis
                     </label>
                 </fieldset>
 
-                <fieldset class = "LVL1">
+                <fieldset class = "LVL2" data-services="M.03.1, M.03.2">
 Se presentan una serie de medidas que pretenden disminuir los efectos contaminantes de la obra hacia el ambiente (suelo, aire y agua), así como hacia las personas (trabajadores, contratistas, habitantes y otros).
-                    
+                    <br>
                     <label>
                         <input type="radio" name="Materiales3">
                         Si
@@ -610,9 +809,10 @@ Se presentan una serie de medidas que pretenden disminuir los efectos contaminan
                     </label>
                 </fieldset>
 
-                <fieldset class = "LVL1">
+                <fieldset class = "LVL2" data-services="M.04.1, M.04.2">
 Tiene el objetivo de promover que los residuos generados por la construcción vayan destinados a los centros de recolección de residuos, así como promover la reducción de la generación de los mismos usando materiales prefabricados.                    
-                    <label>
+<br>                    
+<label>
                         <input type="radio" name="Materiales4">
                         Si
                     </label>
@@ -622,9 +822,10 @@ Tiene el objetivo de promover que los residuos generados por la construcción va
                     </label>
                 </fieldset>
 
-                <fieldset class = "LVL1">
+                <fieldset class = "LVL2" data-services="M.05.1, M.05.2">
 Tiene el objetivo de promover que los sistemas y equipos utilizados en el proyecto estén comisionados. Lo que significa que han sido diseñados, instalados y que funcionan de acuerdo con los requisitos de construcción y los mínimos de normas, códigos o reglamentos aplicables.                    
-                    <label>
+<br>                    
+<label>
                         <input type="radio" name="Materiales5">
                         Si
                     </label>
@@ -634,15 +835,15 @@ Tiene el objetivo de promover que los sistemas y equipos utilizados en el proyec
                     </label>
                 </fieldset>
 
-                <fieldset class = "LVL1">
+                <fieldset class = "LVL1" data-services="M.06.1">
 Objetivo favorecer las condiciones socio-ambientales de la región comprando a proveedores que tengan una ventaja competitiva (social y ambiental) frente a otras opciones de proveedores.
-
+<br>
                     <label>
-                        <input type="radio" name="Materiales5">
+                        <input type="radio" name="Materiales6">
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Materiales5">
+                        <input type="radio" name="Materiales6">
                         No
                     </label>
                 </fieldset>
