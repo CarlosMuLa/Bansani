@@ -103,6 +103,31 @@ document.addEventListener('DOMContentLoaded', () => {
         return months;
     }
 
+    // Reemplaza la función anterior por esta
+    function distributeServicesByMonthPriority(services, maxCostPerMonth = 4, priority = ['LVL1','LVL2','LVL3']) {
+        const months = [];
+
+        function placeService(s){
+            for (let m = 0; m < months.length; m++){
+                if ((months[m].costUsed + s.costo) <= maxCostPerMonth){
+                    months[m].services.push(s);
+                    months[m].costUsed += s.costo;
+                    return;
+                }
+            }
+            // Crear nuevo mes
+            months.push({ costUsed: s.costo, services:[s] });
+        }
+
+        priority.forEach(level => {
+            services.filter(s => s.nivel === level)
+                    .forEach(s => placeService(s));
+        });
+
+        // Devolver solo arrays de servicios por mes
+        return months.map(m => m.services);
+    }
+
     function renderTable(months) {
         document.querySelectorAll('.plan-output').forEach(n => n.remove());
 
@@ -305,8 +330,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateResults(services = []) {
         document.querySelectorAll('.plan-output').forEach(n => n.remove());
-        services.sort((a, b) => serviceCost[b.nivel] - serviceCost[a.nivel]);
-        const months = distributeServicesByMonth(services, 4);
+
+        // Orden base por prioridad (LVL1 primero)
+        const orderWeight = { LVL1: 0, LVL2: 1, LVL3: 2 };
+        services.sort((a, b) => orderWeight[a.nivel] - orderWeight[b.nivel]);
+
+        // Nueva distribución que respeta prioridad nivel
+        const months = distributeServicesByMonthPriority(services, 4, ['LVL1','LVL2','LVL3']);
         renderTable(months);
     }
 
