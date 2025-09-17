@@ -63,15 +63,80 @@
         .submit-btn:hover {
             background: #143a85;
         }
+        #cliente-modal input[type="text"],
+        #cliente-modal input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            margin-bottom: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+        #cliente-modal input[type="text"]:focus,
+        #cliente-modal input[type="email"]:focus {
+            border-color: #1846a3;
+            outline: none;
+        }
+        #cliente-modal label {
+            font-weight: 500;
+            color: #1846a3;
+            display: block;
+        }
+        #cliente-modal button[type="submit"] {
+            background: #1846a3;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 0;
+            width: 100%;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+        #cliente-modal button[type="submit"]:hover {
+            background: #143a85;
+        }
     </style>
 </head>
 <body>
+    <!-- Modal for Client Information -->
+    <div id="cliente-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.3); z-index:1000;">
+        <div style="background:#fff; padding:32px; border-radius:8px; max-width:350px; margin:100px auto; position:relative;">
+            <button id="close-modal-btn" style="position:absolute; top:12px; right:12px; background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+            <h2>Ingresa tus datos para continuar</h2>
+            <form id="cliente-form">
+                <label>
+                    Nombre:
+                    <input type="text" name="nombre" required>
+                </label>
+                
+                <label>
+                    Correo:
+                    <input type="email" name="correo" required>
+                </label>
+                
+                <label>
+                    Teléfono:
+                    <input type="text" name="telefono" required>
+                </label>
+                
+                <input type="hidden" name="action" value="send_clientify_contact">
+                <input type="hidden" id="nonce-field" name="nonce_field" value="">
+                
+                <button type="submit">Continuar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Diagnostic Form -->
     <div class="container">
         <h1>Responde las siguientes preguntas<br>para crear tu diagnóstico gratuito</h1>
-        <div class="progress-bar-bg">
-            <div class="progress-bar"></div>
-        </div>
-        <form onsubmit="getSelectedCategories(event)">
+        
+        <form id="diagnostic-form">
             <div class="question-block">
                 <label class="question-label">
                     ¿Cuenta con áreas abiertas (jardines, canchas, estacionamientos, etc.) donde le interese implementar acciones de sostenibilidad?*
@@ -81,6 +146,7 @@
                     <label><input type="radio" name="Lugar" value="no"> No</label>
                 </div>
             </div>
+            
             <div class="question-block">
                 <label class="question-label">
                     ¿Le interesa implementar acciones de sostenibilidad (trabajar, interactuar, organizarse) con sus vecinos?*
@@ -90,6 +156,7 @@
                     <label><input type="radio" name="Comunidad" value="no"> No</label>
                 </div>
             </div>
+            
             <div class="question-block">
                 <label class="question-label">
                     ¿Le interesa construir o remodelar algún espacio?*
@@ -99,15 +166,17 @@
                     <label><input type="radio" name="Materiales" value="no"> No</label>
                 </div>
             </div>
+            
             <div class="question-block">
                 <label class="question-label">
                     ¿Le interesa reducir la cantidad de agua que consume actualmente?*
                 </label>
-                <div class="options" id = "Agua">
+                <div class="options" id="Agua">
                     <label><input type="radio" name="Agua" value="si" required> Sí</label>
                     <label><input type="radio" name="Agua" value="no"> No</label>
                 </div>
             </div>
+            
             <div class="question-block">
                 <label class="question-label">
                     ¿Le interesa aumentar la información sobre el tema de sostenibilidad para dominio de sus colaboradores?*
@@ -117,36 +186,171 @@
                     <label><input type="radio" name="Educacion" value="no"> No</label>
                 </div>
             </div>
+            
             <div class="question-block">
                 <label class="question-label">
                     ¿Le interesa generar objetivos de mejora para la operación y el mantenimiento de su inmueble?*
                 </label>
-                <div class="options" id="GM"> <!-- Gestion y mantenimiento -->
+                <div class="options" id="GM">
                     <label><input type="radio" name="Gestion" value="si" required> Sí</label>
                     <label><input type="radio" name="Gestion" value="no"> No</label>
                 </div>
             </div>
+            
             <div class="question-block">
                 <label class="question-label">
                     ¿Le interesa mejorar la calidad del interior de su espacio?*
                 </label>
-                <div class="options" id = "Salud">
+                <div class="options" id="Salud">
                     <label><input type="radio" name="Salud" value="si" required> Sí</label>
                     <label><input type="radio" name="Salud" value="no"> No</label>
                 </div>
             </div>
+            
             <div class="question-block">
                 <label class="question-label">
                     ¿Le interesa reducir su consumo eléctrico?*
                 </label>
-                <div class="options" id = "Energia">
+                <div class="options" id="Energia">
                     <label><input type="radio" name="Energia" value="si" required> Sí</label>
                     <label><input type="radio" name="Energia" value="no"> No</label>
                 </div>
             </div>
-            <button type="submit" class="submit-btn" >AVANZAR</button>
+            
+            <button type="submit" class="submit-btn">AVANZAR</button>
         </form>
     </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get WordPress AJAX URL and nonce from the page (these will be set by WordPress)
+        const ajaxUrl = typeof diagnostic_ajax !== 'undefined' ? diagnostic_ajax.ajax_url : '/wp-admin/admin-ajax.php';
+        const nonce = typeof diagnostic_ajax !== 'undefined' ? diagnostic_ajax.nonce : '';
+        
+        // Set the nonce field value
+        const nonceField = document.getElementById('nonce-field');
+        if (nonceField) {
+            nonceField.value = nonce;
+        }
+        
+        // Handle main diagnostic form submission
+        const diagnosticForm = document.getElementById('diagnostic-form');
+        
+        if (diagnosticForm) {
+            diagnosticForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                // Collect selected categories
+                const categorias = [];
+                if (document.querySelector('input[name="Lugar"]:checked')?.value === "si") categorias.push("Lugar");
+                if (document.querySelector('input[name="Comunidad"]:checked')?.value === "si") categorias.push("Comunidad");
+                if (document.querySelector('input[name="Materiales"]:checked')?.value === "si") categorias.push("Materiales");
+                if (document.querySelector('input[name="Agua"]:checked')?.value === "si") categorias.push("Agua");
+                if (document.querySelector('input[name="Educacion"]:checked')?.value === "si") categorias.push("Educacion");
+                if (document.querySelector('input[name="Gestion"]:checked')?.value === "si") categorias.push("Gestion");
+                if (document.querySelector('input[name="Salud"]:checked')?.value === "si") categorias.push("Salud");
+                if (document.querySelector('input[name="Energia"]:checked')?.value === "si") categorias.push("Energia");
+                
+                // Save categories for later use
+                window.selectedCategorias = categorias;
+                
+                // Show the modal
+                document.getElementById('cliente-modal').style.display = 'block';
+            });
+        }
+        
+        // Handle client form submission
+        const clientForm = document.getElementById('cliente-form');
+        const modal = document.getElementById('cliente-modal');
+        const modalInner = document.querySelector('#cliente-modal > div');
+        
+        function showNextStepOptions() {
+            const categorias = window.selectedCategorias || [];
+            const modalContent = `
+                <button id="close-modal-btn" style="position:absolute; top:12px; right:12px; background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+                <h2>¡Gracias! Tus datos fueron enviados.</h2>
+                <p style="margin-bottom:18px;">¿Cómo prefieres continuar?</p>
+                <button id="cotizar-btn" style="background:#1846a3; color:#fff; border:none; border-radius:6px; padding:12px 0; width:100%; font-size:1.1rem; font-weight:600; cursor:pointer; margin-bottom:12px;">Cotizar por mi cuenta</button>
+                <button id="esperar-btn" style="background:#fff; color:#1846a3; border:2px solid #1846a3; border-radius:6px; padding:12px 0; width:100%; font-size:1.1rem; font-weight:600; cursor:pointer;">Esperar contacto de especialista</button>
+            `;
+            modalInner.innerHTML = modalContent;
+            
+            // Attach events to new buttons
+            document.getElementById('cotizar-btn').onclick = function() {
+                const url = `/bansani/cotizador/?categorias=${categorias.join("+")}`;
+                window.location.href = url;
+            };
+            
+            document.getElementById('esperar-btn').onclick = function() {
+                const url = `https://reuniones.clientify.com/#/bnzero/bansani`;
+window.location.href = url;
+
+            };
+            
+            document.getElementById('close-modal-btn').onclick = () => modal.style.display = 'none';
+        }
+        
+        if (clientForm) {
+            clientForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(clientForm);
+                const submitButton = clientForm.querySelector('button[type="submit"]');
+                
+                // Add categories to form data
+                if (window.selectedCategorias) {
+                    formData.append('categorias', window.selectedCategorias.join(','));
+                }
+                
+                submitButton.textContent = 'Enviando...';
+                submitButton.disabled = true;
+                
+                fetch(ajaxUrl, {
+                    method: 'POST',
+                    body: formData,
+                    credentials: 'same-origin'
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Error del servidor: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(result => {
+                    if (result.success) {
+                        console.log('Respuesta Clientify:', result.data.clientify_response);
+                        showNextStepOptions();
+                    } else {
+                        const errorMessage = result.data?.message || 'Ocurrió un error desconocido.';
+                        alert('Hubo un error: ' + errorMessage);
+                        submitButton.textContent = 'Continuar';
+                        submitButton.disabled = false;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error en la petición:', error);
+                    alert('Hubo un problema de conexión. Por favor, inténtalo de nuevo.');
+                    submitButton.textContent = 'Continuar';
+                    submitButton.disabled = false;
+                });
+            });
+        }
+        
+        // Close modal functionality
+        const closeModalButton = document.getElementById('close-modal-btn');
+        if (closeModalButton) {
+            closeModalButton.onclick = function() {
+                modal.style.display = 'none';
+            };
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        };
+    });
+    </script>
 </body>
-    <script src="first_question_handler.js" defer></script>
 </html>

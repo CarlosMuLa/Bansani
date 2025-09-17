@@ -27,9 +27,9 @@
         /* ==== NUEVOS ESTILOS ECO PARA LAS PREGUNTAS ==== */
 
         body {
-            background: linear-gradient(180deg,#f6fbf8 0%, #ffffff 260px);
+            background: #f2f1eb; /* Color crema del logo */
             font-family: system-ui, Arial, sans-serif;
-            color:#193a29;
+            color: #5d6b5a; /* Verde oscuro para texto legible */
         }
 
         h1 {
@@ -37,7 +37,7 @@
             font-weight:700;
             margin:28px 0 30px;
             text-align:center;
-            color:#165a33;
+            color:#385898;
             letter-spacing:.5px;
         }
 
@@ -47,7 +47,7 @@
 
         .categories details {
             background:#ffffff;
-            border:1px solid #d7e9dd;
+            border:1px solid #e0e0d6;
             border-radius:18px;
             padding:0;
             box-shadow:0 3px 8px -3px rgba(0,0,0,.08);
@@ -65,7 +65,7 @@
             font-weight:600;
             padding:16px 56px 16px 20px;
             border-radius:18px;
-            background:linear-gradient(90deg,#1d6a3d,#249153);
+            background:#385898;
             color:#fff;
             position:relative;
             user-select:none;
@@ -73,9 +73,13 @@
         .categories details summary::-webkit-details-marker { display:none; }
 
         .categories details summary::before {
-            content:"🌿";
-            margin-right:8px;
-            filter:drop-shadow(0 1px 2px rgba(0,0,0,.25));
+            content: "S";
+            font-family: serif;
+            font-style: italic;
+            font-weight: bold;
+            color: #7A8A76;
+            margin-right: 8px;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,.25));
         }
         .categories details summary::after {
             content:"";
@@ -99,7 +103,7 @@
         }
 
         .categories details[open] {
-            border-color:#c2e4cf;
+            border-color:#385898;
         }
 
         .categories details > fieldset {
@@ -123,7 +127,7 @@
         fieldset.LVL3 {
             background:#ffffff;
             border:1px solid #dce9e1;
-            border-left:6px solid #55b56e;
+            border-left:6px solid #7a8a76;
             border-radius:14px;
             padding:14px 16px 12px;
             position:relative;
@@ -132,8 +136,8 @@
             box-shadow:0 2px 4px rgba(0,0,0,.05);
             transition:.35s;
         }
-        fieldset.LVL2 { border-left-color:#2f8e4d; }
-        fieldset.LVL3 { border-left-color:#1c5d38; }
+        fieldset.LVL2 { border-left-color: #5d6b5a; }
+        fieldset.LVL3 { border-left-color:#385898; }
 
         fieldset.LVL1:hover,
         fieldset.LVL2:hover,
@@ -147,7 +151,7 @@
         fieldset.LVL3 p {
             margin:0 0 10px;
             font-weight:600;
-            color:#1f462f;
+            color:#385898;
         }
 
         /* Texto directo (cuando no usan <p>) */
@@ -170,7 +174,7 @@
             font-size:13px;
             font-weight:600;
             letter-spacing:.3px;
-            color:#195432;
+            color:#5d6b5a;
             cursor:pointer;
             line-height:1.2;
             transition:.25s;
@@ -182,17 +186,17 @@
         }
 
         fieldset label input[type=radio] {
-            accent-color:#24894d;
+            accent-color:#385898;
             transform:scale(1.05);
             margin:0 2px 0 0;
         }
 
         /* Estado seleccionado (usa :has para navegadores modernos) */
         fieldset label:has(input[type=radio]:checked) {
-            background:linear-gradient(90deg,#1f7a44,#2fa35d);
+            background:#385898;
             color:#fff;
-            border-color:#1f7a44;
-            box-shadow:0 0 0 2px #d6f3e2;
+            border-color:#385898;
+            box-shadow:0 0 0 2px #d9dce3;
         }
 
         /* Fallback sin :has (aún se ve aceptable) */
@@ -217,9 +221,77 @@
             h1 { font-size:23px; }
             .category { flex:1 1 100%; }
         }
+
+        #client-modal input[type="text"],
+        #client-modal input[type="tel"],
+        #client-modal input[type="email"] {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        /* input para el telefono */
+        #client-modal button {
+            background-color: #385898;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #client-modal input[type="text"]:focus,
+        #client-modal input[type="tel"]:focus,
+        #client-modal input[type="email"]:focus {
+            border-color: #1846a3;
+            outline: none;
+        }
+        #client-modal label {
+            font-weight: 500;
+            color: #1846a3;
+            display: block;
+        }
+        #client-modal button[type="submit"] {
+            background: #1846a3;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 0;
+            width: 100%;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+        #client-modal button[type="submit"]:hover {
+            background: #143a85;
+        }
+
     </style>
 </head>
 <body>
+
+    <div id="client-modal" style="display: none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.3); z-index:1000;">
+        <div style="background:#fff; padding:20px; border-radius:8px; width:90%; max-width:400px; margin:100px auto; position:relative;">
+            <button id="close-modal-btn" style="position:absolute; top:12px; right:12px; background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+            <h2>Información del Cliente</h2>
+            <form id="client-form">
+                <label for="client-name">Nombre:</label>
+                <input type="text" id="client-name" name="nombre" required>
+
+                <label for="client-email">Email:</label>
+                <input type="email" id="client-email" name="correo" required>
+
+                <label for="client-phone">Teléfono:</label>
+                <input type="tel" id="client-phone" name="telefono" required>
+                <input type="hidden" name="action" value="send_clientify_contact">
+                <input type="hidden" name="nonce" id="nonce-field" value="">
+
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+    </div>
     <h1>Selecciona de las categorias tus intereses</h1>
     <div class="categories">
         <div class="category">
@@ -323,7 +395,7 @@ Tiene el objetivo de aprovechar al máximo lo que nos ofrece el entorno a travé
                         SI
                     </label>
                     <label>
-                        <input type="radio" name="Energia1">
+                        <input type="radio" name="Energia1" checked>
                         NO
                     </label>
                 </fieldset>
@@ -334,7 +406,7 @@ Tiene el objetivo de generar espacios de confort aprovechando al máximo la ilum
                         SI
                     </label>
                     <label>
-                        <input type="radio" name="Energia2">
+                        <input type="radio" name="Energia2" checked>
                         NO
                     </label>
                 </fieldset>
@@ -345,7 +417,7 @@ Tiene el objetivo de establecer acciones de mejora para los sistemas que modific
                         SI
                     </label>
                     <label>
-                        <input type="radio" name="Energia3">
+                        <input type="radio" name="Energia3" checked>
                         NO
                     </label>
                 </fieldset>
@@ -356,7 +428,7 @@ Tiene el objetivo de conocer el consumo de energía en el proyecto a través de 
                         SI
                     </label>
                     <label>
-                        <input type="radio" name="Energia4">
+                        <input type="radio" name="Energia4" checked>
                         NO
                     </label>
                 </fieldset>
@@ -367,7 +439,7 @@ Tiene el objetivo de conocer el consumo energético de los equipos a través de 
                         SI
                     </label>
                     <label>
-                        <input type="radio" name="Energia5">
+                        <input type="radio" name="Energia5" checked>
                         NO
                     </label>
                 </fieldset>
@@ -378,7 +450,7 @@ Tiene el objetivo de implementar tecnologías de energía renovable para disminu
                         SI
                     </label>
                     <label>
-                        <input type="radio" name="Energia6">
+                        <input type="radio" name="Energia6" checked>
                         NO
                     </label>
                 </fieldset>
@@ -391,7 +463,7 @@ Tiene el objetivo de incentivar el uso de vehículos verdes, al proporcionar esp
                         SI
                     </label>
                     <label>
-                        <input type="radio" name="Energia7">
+                        <input type="radio" name="Energia7" checked>
                         NO
                     </label>
                 </fieldset>
@@ -403,7 +475,7 @@ Tiene el objetivo de reducir la carga energética a través de la conservación 
                         SI
                     </label>
                     <label>
-                        <input type="radio" name="Energia8">
+                        <input type="radio" name="Energia8" checked>
                         NO
                     </label>
                 </fieldset>
@@ -419,7 +491,7 @@ Tiene el objetivo de reducir la carga energética a través de la conservación 
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Gestion1">
+                        <input type="radio" name="Gestion1" checked>
                         No
                     </label>
                 </fieldset>
@@ -431,7 +503,7 @@ Tiene el objetivo de demostrar el correcto funcionamiento y supervisión de las 
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Gestion2">
+                        <input type="radio" name="Gestion2" checked>
                         No
                     </label>
                 </fieldset>
@@ -443,7 +515,7 @@ Tiene el objeo de proporcionar un sistema ordenado y eficiente para la gestión,
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Gestion3">
+                        <input type="radio" name="Gestion3" checked>
                         No
                     </label>
                 </fieldset>
@@ -458,7 +530,7 @@ Tiene el objetivo de promover las competencias necesaria para cumplir con los al
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Educacion1">
+                        <input type="radio" name="Educacion1" checked>
                         No
                     </label>
                 </fieldset>
@@ -472,7 +544,7 @@ Tiene el objetivo de interactuar con la comunidad externa al proyecto para colab
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Educacion2">
+                        <input type="radio" name="Educacion2" checked>
                         No
                     </label>
                 </fieldset>
@@ -489,7 +561,7 @@ Tiene el objetivo de asegurar el acceso a alimentos nutritivos, generar un espac
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Comunidad1">
+                        <input type="radio" name="Comunidad1" checked>
                         No
                     </label>
                 </fieldset>
@@ -501,7 +573,7 @@ Tiene el objetivo de proporcionar alimentos nutritivos en todo momento al contar
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Comunidad2">
+                        <input type="radio" name="Comunidad2" checked>
                         No
                     </label>
                 </fieldset>
@@ -513,7 +585,7 @@ Tiene el objetivo de proporcionar a los ocupantes la oportunidad de desplazarse 
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Comunidad3">
+                        <input type="radio" name="Comunidad3" checked>
                         No
                     </label>
                 </fieldset>
@@ -525,7 +597,7 @@ Tiene el objetivo de proporcionar a los ocupantes la oportunidad de desplazarse 
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Comunidad4">
+                        <input type="radio" name="Comunidad4" checked>
                         No
                     </label>
                 </fieldset>
@@ -537,7 +609,7 @@ Tiene el objetivo de reforzar el sentido de pertenencia de los ocupantes al prop
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Comunidad5">
+                        <input type="radio" name="Comunidad5" checked>
                         No
                     </label>
                 </fieldset>
@@ -549,7 +621,7 @@ Tiene el objetivo de reforzar el sentido de pertenencia de los ocupantes al cele
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Comunidad6">
+                        <input type="radio" name="Comunidad6" checked>
                         No
                     </label>
                 </fieldset>
@@ -561,7 +633,7 @@ Tiene el objetivo de generar ingresos económicos al reincorporar los residuos e
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Comunidad7">
+                        <input type="radio" name="Comunidad7" checked>
                         No
                     </label>
                 </fieldset>
@@ -573,7 +645,7 @@ Tiene el objetivo de eliminar la generación de residuos sólidos, disminuyendo 
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Comunidad8">
+                        <input type="radio" name="Comunidad8" checked>
                         No
                     </label>
                 </fieldset>
@@ -585,7 +657,7 @@ Promover un desarrollo urbano compacto, eficiente y bien conectado que aproveche
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Comunidad9">
+                        <input type="radio" name="Comunidad9" checked>
                         No
                     </label>
                 </fieldset>
@@ -600,7 +672,7 @@ Tiene el objetivo de reducir el consumo de agua potable en el exterior, partiend
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Agua1">
+                        <input type="radio" name="Agua1" checked>
                         No
                     </label>
                 </fieldset>
@@ -612,7 +684,7 @@ Tiene el objetivo de reducir el consumo de agua potable en el interior, partiend
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Agua2">
+                        <input type="radio" name="Agua2" checked>
                         No
                     </label>
                 </fieldset>
@@ -624,7 +696,7 @@ Nos ayuda a tener conocimiento de la cantidad de agua que se consume, nos permit
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Agua3">
+                        <input type="radio" name="Agua3" checked>
                         No
                     </label>
                 </fieldset>
@@ -636,7 +708,7 @@ Busca cumplir con los requerimientos para poder utilizar el agua, evitar la cont
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Agua4">
+                        <input type="radio" name="Agua4" checked>
                         No
                     </label>
                 </fieldset>
@@ -648,7 +720,7 @@ Nos ayuda a buscar la posibilidad de ser autosuficientes con el consumo de agua 
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Agua5">
+                        <input type="radio" name="Agua5" checked>
                         No
                     </label>
                 </fieldset>
@@ -660,7 +732,7 @@ Se busca reducir el impacto de la escorrentía pluvial en el sitio, promoviendo 
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Agua6">
+                        <input type="radio" name="Agua6" checked>
                         No
                     </label>
                 </fieldset>
@@ -675,7 +747,7 @@ Tiene el objetivo de contribuir al confort y bienestar de todos los ocupantes es
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Salud1">
+                        <input type="radio" name="Salud1" checked>
                         No
                     </label>
                 </fieldset>
@@ -687,7 +759,7 @@ Tiene el objetivo de contribuir al confort y bienestar de todos los ocupantes es
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Salud2">
+                        <input type="radio" name="Salud2" checked>
                         No
                     </label>
                 </fieldset>
@@ -700,7 +772,7 @@ Tiene el objetivo de contribuir al confort y bienestar de todos los ocupantes es
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Salud3">
+                        <input type="radio" name="Salud3" checked>
                         No
                     </label>
                 </fieldset>
@@ -712,7 +784,7 @@ Tiene el objetivo de contribuir al confort y bienestar de todos los ocupantes es
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Salud4">
+                        <input type="radio" name="Salud4" checked>
                         No
                     </label>
                 </fieldset>
@@ -724,7 +796,7 @@ Tiene el objetivo de apoyar y mejorar la salud, el bienestar y la productividad 
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Salud5">
+                        <input type="radio" name="Salud5" checked>
                         No
                     </label>
                 </fieldset>
@@ -736,7 +808,7 @@ Tiene como objetivo que los ocupantes del edificio tengan acceso a espacios verd
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Salud6">
+                        <input type="radio" name="Salud6" checked>
                         No
                     </label>
                 </fieldset>
@@ -749,7 +821,7 @@ Tiene como objetivo brindar espacios de recreación para los ocupantes del edifi
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Salud7">
+                        <input type="radio" name="Salud7" checked>
                         No
                     </label>
                 </fieldset>
@@ -762,7 +834,7 @@ Tiene como objetivo brindar espacios de recreación para los ocupantes del edifi
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Salud8">
+                        <input type="radio" name="Salud8" checked>
                         No
                     </label>
                 </fieldset>
@@ -778,7 +850,7 @@ Tiene el objetivo de reducir las concentraciones de productos químicos contamin
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Materiales1">
+                        <input type="radio" name="Materiales1" checked>
                         No
                     </label>
                 </fieldset>
@@ -791,7 +863,7 @@ Tiene el objetivo de utilizar la mayor cantidad de materiales responsables y dis
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Materiales2">
+                        <input type="radio" name="Materiales2" checked>
                         No
                     </label>
                 </fieldset>
@@ -804,7 +876,7 @@ Se presentan una serie de medidas que pretenden disminuir los efectos contaminan
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Materiales3">
+                        <input type="radio" name="Materiales3" checked>
                         No
                     </label>
                 </fieldset>
@@ -817,7 +889,7 @@ Tiene el objetivo de promover que los residuos generados por la construcción va
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Materiales4">
+                        <input type="radio" name="Materiales4" checked>
                         No
                     </label>
                 </fieldset>
@@ -830,7 +902,7 @@ Tiene el objetivo de promover que los sistemas y equipos utilizados en el proyec
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Materiales5">
+                        <input type="radio" name="Materiales5" checked>
                         No
                     </label>
                 </fieldset>
@@ -843,7 +915,7 @@ Objetivo favorecer las condiciones socio-ambientales de la región comprando a p
                         Si
                     </label>
                     <label>
-                        <input type="radio" name="Materiales6">
+                        <input type="radio" name="Materiales6" checked>
                         No
                     </label>
                 </fieldset>
@@ -857,5 +929,534 @@ Objetivo favorecer las condiciones socio-ambientales de la región comprando a p
         </div>
     </div>
 </body>
-<script src="script.js"></script>
+ </div> <div id="resultado-cotizacion"></div>
+<script>document.addEventListener('DOMContentLoaded', () => {
+
+    const ajaxUrl = typeof diagnostic_ajax !== 'undefined' ? diagnostic_ajax.ajax_url : '/wp-admin/admin-ajax.php';
+    const nonce = typeof diagnostic_ajax !== 'undefined' ? diagnostic_ajax.nonce : '';
+
+    const nonceField = document.getElementById('nonce-field');
+    if (nonceField) {
+        nonceField.value = nonce;
+    }
+
+    const serviceCost = {"LVL1": 1, "LVL2": 2, "LVL3": 4};
+    const allFieldsets = document.querySelectorAll('.categories details fieldset');
+    const selectedHistory = {};
+
+    const TOTAL_COMPONENTS = 49;
+    const MONTHLY_COST = 12000;
+
+    const params = new URLSearchParams(window.location.search);
+    const categoriasParam = params.get('categorias');
+    const categoriasSeleccionadas = categoriasParam ? categoriasParam.split(" ") : [];
+
+    const categoriesContainer = document.querySelector('.categories');
+    if (categoriesContainer) {
+        categoriesContainer.querySelectorAll('.category details').forEach(detail => {
+            const categoria = detail.getAttribute('data-categories');
+            detail.style.display = categoriasSeleccionadas.length === 0 || categoriasSeleccionadas.includes(categoria)
+                ? ''
+                : 'none';
+        });
+
+        // Oculta columnas vacías
+        categoriesContainer.querySelectorAll('.category').forEach(cat => {
+            const visible = Array.from(cat.querySelectorAll('details')).some(d => d.style.display !== 'none');
+            cat.style.display = visible ? '' : 'none';
+            if (visible) cat.style.flex = '';
+        });
+
+        const visibles = categoriesContainer.querySelectorAll('.category:not([style*="display: none"])');
+        if (visibles.length === 1) {
+            visibles[0].style.flex = '1 1 100%';
+        }
+    }
+
+    function getSelectedServices() {
+        for (const k in selectedHistory) delete selectedHistory[k];
+
+        allFieldsets.forEach(fieldset => {
+            const firstRadio = fieldset.querySelector('input[type="radio"]');
+            if (!firstRadio) return;
+
+            const preguntaId = firstRadio.name;
+            const selected = fieldset.querySelector(`input[type="radio"][name="${preguntaId}"]:checked`);
+            if (!selected) return;
+
+            const respuestaTxt = (selected.nextSibling?.textContent || selected.value || '').trim().toLowerCase();
+            if (respuestaTxt === 'no') return;
+
+            const categoria = fieldset.closest('details')?.querySelector('summary')?.textContent?.trim() || 'Sin categoría';
+            const nivel = fieldset.className.trim();
+
+            // Obtén descripción: atributo data-title o texto antes del primer label
+            let titulo = fieldset.getAttribute('data-title');
+            if (!titulo) {
+                const fragments = [];
+                for (const node of fieldset.childNodes) {
+                    if (node.nodeType === 1 && node.tagName === 'LABEL') break;
+                    if (node.nodeType === 1 && node.tagName === 'P') fragments.push(node.textContent.trim());
+                    else if (node.nodeType === 3) {
+                        const t = node.textContent.replace(/\s+/g,' ').trim();
+                        if (t) fragments.push(t);
+                    }
+                }
+                titulo = fragments.join(' ').trim();
+            }
+
+            const attr = fieldset.getAttribute('data-services');
+            const serviceCodes = attr
+                ? attr.split(/[,;]+/).map(s => s.trim()).filter(Boolean)
+                : [preguntaId];
+
+            serviceCodes.forEach(code => {
+                selectedHistory[code] = {
+                    codigo: code,
+                    pregunta: preguntaId,
+                    categoria,
+                    nivel,
+                    titulo,
+                    respuesta: 'Sí',
+                    costo: serviceCost[nivel] || 1
+                };
+            });
+        });
+
+        return Object.values(selectedHistory);
+    }
+
+    function distributeServicesByMonth(services, maxCostPerMonth = 4) {
+        const months = [];
+        let currentMonth = [];
+        let currentCost = 0;
+        services.forEach(service => {
+            if (currentCost + service.costo > maxCostPerMonth) {
+                months.push(currentMonth);
+                currentMonth = [];
+                currentCost = 0;
+            }
+            currentMonth.push(service);
+            currentCost += service.costo;
+        });
+        if (currentMonth.length) months.push(currentMonth);
+        return months;
+    }
+
+    // Reemplaza la función anterior por esta
+    function distributeServicesByMonthPriority(services, maxCostPerMonth = 4, priority = ['LVL1','LVL2','LVL3']) {
+        const months = [];
+
+        function placeService(s){
+            for (let m = 0; m < months.length; m++){
+                if ((months[m].costUsed + s.costo) <= maxCostPerMonth){
+                    months[m].services.push(s);
+                    months[m].costUsed += s.costo;
+                    return;
+                }
+            }
+            // Crear nuevo mes
+            months.push({ costUsed: s.costo, services:[s] });
+        }
+
+        priority.forEach(level => {
+            services.filter(s => s.nivel === level)
+                    .forEach(s => placeService(s));
+        });
+
+        // Devolver solo arrays de servicios por mes
+        return months.map(m => m.services);
+    }
+
+    function renderTable(months) {
+        document.querySelectorAll('.plan-output').forEach(n => n.remove());
+
+        if (!document.getElementById('planStyles')) {
+            const st = document.createElement('style');
+            st.id = 'planStyles';
+            st.textContent = `
+            .plan-output { margin-top:24px; font-family:Arial, sans-serif; }
+            .deliverables-table { width:100%; border-collapse:collapse; font-size:12px; }
+            .deliverables-table th, .deliverables-table td { border:1px solid #d0d4dc; vertical-align:top; padding:8px 10px; }
+            .deliverables-table th { background:#143e7c; color:#fff; font-weight:600; text-align:center; }
+            .deliverables-table td.nivel-col { width:70px; font-weight:600; background:#f2f5f8; }
+            .deliverables-table td.componentes-col { width:260px; background:#f8f9fb; }
+            .deliverables-table ul { list-style:none; margin:0; padding:0; }
+            .deliverables-table li::before { content:"* "; color:#143e7c; font-weight:600; }
+            .nivel-tag-LVL1 { color:#143e7c; }
+            .nivel-tag-LVL2 { color:#8a4d00; }
+            .nivel-tag-LVL3 { color:#5a2c91; }
+            .plan-notes{
+            margin-top:18px;
+                background:linear-gradient(135deg,#f0f8f3 0%, #e3f5e8 100%);
+                border:1px solid #c6e7d2;
+                padding:18px 22px;
+                border-radius:14px;
+                color:#1f4d2b;
+                font-size:13px;
+                line-height:1.55;
+                box-shadow:0 2px 4px rgba(0,0,0,.04);
+                position:relative;
+                overflow:hidden;
+            }
+                .plan-notes::after {
+                content:"";
+                position:absolute;
+                width:160px;
+                height:160px;
+                right:-40px;
+                top:-40px;
+                background:radial-gradient(circle at 30% 30%, rgba(109,207,143,.35), rgba(49,168,97,0));
+                transform:rotate(25deg);
+                pointer-events:none;
+            }
+            .plan-notes-title {
+                font-weight:600;
+                font-size:14px;
+                text-transform:uppercase;
+                letter-spacing:.5px;
+                margin-bottom:10px;
+                display:flex;
+                align-items:center;
+                gap:8px;
+                color:#1d5e34;
+            }
+            .plan-notes-title::before {
+                content:"🌿";
+                font-size:18px;
+            }
+            .plan-notes ul {
+                list-style:none;
+                margin:0;
+                padding:0;
+            }
+            .plan-notes li {
+                position:relative;
+                margin:6px 0 8px;
+                padding-left:22px;
+            }
+            .plan-notes li::before {
+                content:"";
+                position:absolute;
+                left:0;
+                top:6px;
+                width:12px;
+                height:12px;
+                background:radial-gradient(circle at 30% 30%, #6dcf8f, #31a861);
+                border-radius:3px;
+                transform:rotate(45deg);
+                box-shadow:0 0 0 2px #f0f8f3;
+            }
+            .plan-notes a {
+                color:#247a45;
+                text-decoration:underline;
+            }
+            .plan-notes a:hover {
+                text-decoration:none;
+            }
+            .plan-total {
+                margin: 24px 0 18px;
+                padding: 16px 22px;
+                background: #fff;
+                border: 1px solid #7a8a76;
+                border-left: 6px solid #385898;
+                border-radius: 12px;
+                text-align: center;
+                font-size: 16px;
+                color: #5d6b5a;
+                box-shadow: 0 3px 8px -3px rgba(0,0,0,.1);
+            }
+            .plan-total-label {
+                font-weight: 600;
+                color: #385898;
+                display: block;
+                font-size: 14px;
+                text-transform: uppercase;
+                letter-spacing: .5px;
+                margin-bottom: 4px;
+            }
+            .plan-total-value {
+                font-size: 22px;
+                font-weight: 700;
+                color: #385898;
+                margin-right: 10px;
+            }
+            .plan-total-details {
+                font-size: 14px;
+                color: #7a8a76;
+                display: block;
+                margin-top: 4px;
+            }
+            #sendEmailButton {
+                margin-top: 12px;
+                padding: 12px 24px;
+                background-color: #143e7c;
+                color: #fff;
+                border: none;
+                border-radius: 8px;
+                font-size: 14px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            `
+            ;
+            document.head.appendChild(st);
+        }
+
+        // Agrupa servicios seleccionados totales por nivel
+        const levelMap = {};
+        const nivelOrder = ['LVL1','LVL2','LVL3'];
+        const allServices = months.flat(); // ya ordenados antes por updateResults
+
+        allServices.forEach(s => {
+            if (!levelMap[s.nivel]) levelMap[s.nivel] = { all: [], months: [] };
+            levelMap[s.nivel].all.push(s);
+        });
+
+        // Inicializa matriz months por nivel
+        months.forEach((monthServices, mIdx) => {
+            nivelOrder.forEach(nv => {
+                if (!levelMap[nv]) levelMap[nv] = { all: [], months: [] };
+                if (!levelMap[nv].months[mIdx]) levelMap[nv].months[mIdx] = [];
+            });
+            monthServices.forEach(s => {
+                levelMap[s.nivel].months[mIdx].push(s);
+            });
+        });
+
+        const container = document.createElement('div');
+        container.className = 'plan-output';
+
+        const table = document.createElement('table');
+        table.className = 'deliverables-table';
+
+        // Header
+        const thead = document.createElement('thead');
+        const htr = document.createElement('tr');
+        htr.innerHTML = `
+            <th>Nivel</th>
+            <th>Componentes seleccionados por el cliente para su proyecto</th>
+            ${months.map((_,i)=>`<th>Entregas Mes ${i+1}</th>`).join('')}
+        `;
+        thead.appendChild(htr);
+        table.appendChild(thead);
+
+        // Body
+        const tbody = document.createElement('tbody');
+
+        nivelOrder.forEach(nv => {
+            const data = levelMap[nv];
+            if (!data) return; // si no hay ninguno
+            if (data.all.length === 0 && months.length === 0) return;
+
+            const tr = document.createElement('tr');
+
+            const nivelCell = document.createElement('td');
+            nivelCell.className = 'nivel-col';
+            nivelCell.textContent = 'Nivel ' + nv.replace('LVL','');
+            tr.appendChild(nivelCell);
+
+            const compCell = document.createElement('td');
+            compCell.className = 'componentes-col';
+            const listAll = document.createElement('ul');
+            data.all.forEach(s => {
+                const li = document.createElement('li');
+                // Texto: código - título (si existe)
+                li.textContent = `${s.codigo}${s.titulo ? ' - ' + s.titulo : ''}`;
+                listAll.appendChild(li);
+            });
+            compCell.appendChild(listAll);
+            tr.appendChild(compCell);
+
+            // Meses
+            months.forEach((_, idx) => {
+                const mCell = document.createElement('td');
+                const arr = (data.months[idx] || []);
+                if (arr.length) {
+                    const ul = document.createElement('ul');
+                    arr.forEach(s => {
+                        const li = document.createElement('li');
+                        li.textContent = `${s.codigo}${s.titulo ? ' - ' + s.titulo : ''}`;
+                        ul.appendChild(li);
+                    });
+                    mCell.appendChild(ul);
+                }
+                tr.appendChild(mCell);
+            });
+
+            tbody.appendChild(tr);
+        });
+
+        table.appendChild(tbody);
+        container.appendChild(table);
+        
+
+        const selectedCount = allServices.length;
+        const monthsCount = months.length;
+        const totalCost = monthsCount * MONTHLY_COST;
+        const notes = document.createElement('div');
+        const totalDiv = document.createElement('div');
+        totalDiv.className = 'plan-total';
+        totalDiv.innerHTML = `
+            <span class="plan-total-label">Costo total del proyecto:</span>
+            <span class="plan-total-value">${new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(totalCost)} MXN + IVA</span>
+            <span class="plan-total-details">(${monthsCount} ${monthsCount === 1 ? 'mes' : 'meses'} de trabajo por ${new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(MONTHLY_COST)} / mensuales)</span>
+        `;
+        notes.className = 'plan-notes';
+        notes.innerHTML = `
+            <div class="plan-notes-title">NOTAS:</div>
+            <ul>
+                <li>El cliente eligió ${selectedCount} componentes de ${TOTAL_COMPONENTS} totales que tiene la metodología Bansani.</li>
+                <li>Los entregables van en función de los niveles: Nivel 1 (4 componentes/mes), Nivel 2 (2 componentes/mes), Nivel 3 (1 componente/mes).</li>
+                <li>Tendrás un equipo de expertos en sostenibilidad enfocados en tu proyecto.</li>
+            </ul>
+        `;
+        const sendButton = document.createElement('button');
+        sendButton.id = 'sendEmailButton';
+        sendButton.textContent = 'Enviar cotización';
+
+        if (selectedCount > 0) {
+            document.getElementById('resultado-cotizacion').appendChild(container);
+            container.appendChild(totalDiv);
+            container.appendChild(notes);
+            container.appendChild(sendButton);
+        }
+    }
+
+    function updateResults(services = []) {
+        document.querySelectorAll('.plan-output').forEach(n => n.remove());
+
+        // Orden base por prioridad (LVL1 primero)
+        const orderWeight = { LVL1: 0, LVL2: 1, LVL3: 2 };
+        services.sort((a, b) => orderWeight[a.nivel] - orderWeight[b.nivel]);
+
+        // Nueva distribución que respeta prioridad nivel
+        const months = distributeServicesByMonthPriority(services, 4, ['LVL1','LVL2','LVL3']);
+        renderTable(months);
+    }
+
+    function refresh() {
+        const services = getSelectedServices();
+        updateResults(services);
+    }
+
+    allFieldsets.forEach(fieldset => {
+        fieldset.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', refresh);
+        });
+    });
+    function openModal()
+    {
+        const m = document.getElementById('client-modal');
+        if (!m) return;
+        m.setAttribute('aria-hidden', 'false');
+        m.style.display = 'block';
+        const f = m.querySelector('form');
+        if (f){
+            f.reset();
+            f.focus();
+        }
+    }
+
+    function closeModal()
+    {
+        const m = document.getElementById('client-modal');
+        if (!m) return;
+        m.setAttribute('aria-hidden', 'true');
+        m.style.display = 'none';
+    }
+    
+        document.addEventListener('click', function(e) {
+        const btn = e.target.closest && e.target.closest('#sendEmailButton');
+        if (btn){
+        e.preventDefault();
+        openModal();
+        return;
+        }
+        //get id close-modal-btn
+        if (e.target.closest && e.target.closest('#close-modal-btn')){
+            e.preventDefault();
+            closeModal();
+            return;
+        }
+
+        });
+
+        const modal = document.getElementById('client-modal');
+        if (modal) 
+        {
+            modal.addEventListener('click', function(e){
+                if (e.target === modal) closeModal();
+            });
+        }
+
+        document.addEventListener('keydown', function(e){
+            if (e.key === 'Escape'){
+                const m = document.getElementById('client-modal');
+                if (m && m.getAttribute('aria-hidden') === 'false'){
+                    closeModal();
+                }
+            }
+        });
+        // Envía el formulario por AJAX
+        const form = document.getElementById('client-form');
+        if(form)
+        {
+            form.addEventListener('submit', function(e){
+                e.preventDefault();
+                const formData = new FormData(form);
+                formData.append('services', JSON.stringify(getSelectedServices()));
+                console.log('Servicios seleccionados:', getSelectedServices());
+                const submitButton = form.querySelector('button[type="submit"]');
+
+                if (submitButton) {
+                    submitButton.textContent = 'Enviando...';
+                    submitButton.disabled = true;
+                }
+
+                fetch(ajaxUrl, {
+                    method: 'POST',
+                    body: formData,
+                    credentials: 'same-origin'
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Network response was not ok: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) 
+                    {
+                        alert('¡Cotización enviada con éxito! Nos pondremos en contacto contigo pronto.');
+                        window.location.href = 'https://dev.bnzero.com/bansani/gracias/';
+                    } else {
+                        const errorMsg = data.data && data.data.message ? data.data.message : 'Error desconocido';
+                        console.error('Error al enviar la cotización:', errorMsg);
+                        if (submitButton) {
+                            submitButton.textContent = 'Enviar Cotización';
+                            submitButton.disabled = false;
+                        }
+            
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Hubo un error al enviar la cotización. Por favor, inténtalo de nuevo.');
+                    if (submitButton) {
+                        submitButton.textContent = 'Enviar Cotización';
+                        submitButton.disabled = false;
+                    }
+                });
+            });
+        }
+
+    // Init
+    refresh();
+});
+</script>
 </html>

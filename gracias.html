@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>¡Gracias!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1846a3 0%, #3bb2ff 100%);
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Montserrat', Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .thanks-container {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(24,70,163,0.12);
+            padding: 48px 32px;
+            max-width: 400px;
+            text-align: center;
+            animation: fadeIn 1s;
+        }
+        .thanks-icon {
+            font-size: 4rem;
+            color: #3bb2ff;
+            margin-bottom: 18px;
+            animation: popIn 0.7s;
+        }
+        h1 {
+            color: #1846a3;
+            font-size: 2.1rem;
+            margin-bottom: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        p {
+            color: #333;
+            font-size: 1.15rem;
+            margin-bottom: 24px;
+        }
+        .back-btn {
+            background: #1846a3;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 32px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(24,70,163,0.08);
+            transition: background 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .back-btn:hover {
+            background: #143a85;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        @keyframes popIn {
+            0% { transform: scale(0.7);}
+            80% { transform: scale(1.1);}
+            100% { transform: scale(1);}
+        }
+    </style>
+</head>
+<body>
+    <div class="thanks-container">
+        <div class="thanks-icon">🎉</div>
+        <h1>¡Gracias!</h1>
+        <p>Tu información ha sido enviada correctamente.<br>
+        Pronto nos pondremos en contacto contigo.<br>
+        ¡Te deseamos un excelente día!</p>
+        <a href="/" class="back-btn">Volver al inicio</a>
+    </div>
+</body>
+</html>
