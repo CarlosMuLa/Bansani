@@ -949,7 +949,27 @@ Objetivo favorecer las condiciones socio-ambientales de la región comprando a p
 
     const params = new URLSearchParams(window.location.search);
     const categoriasParam = params.get('categorias');
+    const selectionParam = params.get('servicios');
     const categoriasSeleccionadas = categoriasParam ? categoriasParam.split(" ") : [];
+
+    function applySelectionFromURL()
+    {
+        if (!selectionParam) return;
+        const selectedNames = selectionParam.split(",");
+
+        selectedNames.forEach(name => {
+                const radios = document.querySelectorAll(`input[type="radio"][name="${name}"]`);
+                if (radios.length >= 2) {
+                    const siRadio = radios[0]; // Asumimos que SI es el primero
+                    const noRadio = radios[1]; // Asumimos que NO es el segundo
+                    if (siRadio && noRadio && siRadio.nextSibling.textContent.trim().toLowerCase() === 'si') {
+                        siRadio.checked = true;
+                        noRadio.checked = false;
+                    }
+                }
+            });
+    }
+    
 
     const categoriesContainer = document.querySelector('.categories');
     if (categoriesContainer) {
@@ -1338,9 +1358,25 @@ Objetivo favorecer las condiciones socio-ambientales de la región comprando a p
         const months = distributeServicesByMonthPriority(services, 4, ['LVL1','LVL2','LVL3']);
         renderTable(months);
     }
+    function generateShareLink() {
+        const selectedServices = getSelectedServices();
+        const questionNames = selectedServices.map(s => s.pregunta).filter((v, i, a) => a.indexOf(v) === i);
+        if (questionNames.length === 0) {
+                alert('No hay selecciones para enviar.');
+                return;
+            }
+            const selectionString = questionNames.join(',');
+            console.log('Cadena de selección para URL:', selectionString);
+            const url = new URL(window.location);
+            url.searchParams.set('servicios', selectionString);
+            window.history.pushState({}, '', url);
+    }
+
+    
 
     function refresh() {
         const services = getSelectedServices();
+        generateShareLink();
         updateResults(services);
     }
 
@@ -1409,7 +1445,9 @@ Objetivo favorecer las condiciones socio-ambientales de la región comprando a p
             form.addEventListener('submit', function(e){
                 e.preventDefault();
                 const formData = new FormData(form);
-                formData.append('services', JSON.stringify(getSelectedServices()));
+                //get selected services url to save params
+                const services = window.location.href;
+                formData.append('services', services);
                 console.log('Servicios seleccionados:', getSelectedServices());
                 const submitButton = form.querySelector('button[type="submit"]');
 
@@ -1456,6 +1494,7 @@ Objetivo favorecer las condiciones socio-ambientales de la región comprando a p
         }
 
     // Init
+    applySelectionFromURL();
     refresh();
 });
 </script>
