@@ -955,7 +955,7 @@ Objetivo favorecer las condiciones socio-ambientales de la región comprando a p
     function applySelectionFromURL()
     {
         if (!selectionParam) return;
-        const selectedNames = selectionParam.split(",");
+        const selectedNames = selectionParam.split("_");
 
         selectedNames.forEach(name => {
                 const radios = document.querySelectorAll(`input[type="radio"][name="${name}"]`);
@@ -1362,10 +1362,9 @@ Objetivo favorecer las condiciones socio-ambientales de la región comprando a p
         const selectedServices = getSelectedServices();
         const questionNames = selectedServices.map(s => s.pregunta).filter((v, i, a) => a.indexOf(v) === i);
         if (questionNames.length === 0) {
-                alert('No hay selecciones para enviar.');
                 return;
             }
-            const selectionString = questionNames.join(',');
+            const selectionString = questionNames.join('_');
             console.log('Cadena de selección para URL:', selectionString);
             const url = new URL(window.location);
             url.searchParams.set('servicios', selectionString);
@@ -1470,7 +1469,6 @@ Objetivo favorecer las condiciones socio-ambientales de la región comprando a p
                 .then(data => {
                     if (data.success) 
                     {
-                        alert('¡Cotización enviada con éxito! Nos pondremos en contacto contigo pronto.');
                         window.location.href = 'https://dev.bnzero.com/bansani/gracias/';
                     } else {
                         const errorMsg = data.data && data.data.message ? data.data.message : 'Error desconocido';
