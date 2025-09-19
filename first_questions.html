@@ -223,6 +223,12 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return decodeURIComponent(parts.pop().split(';').shift());
+            return null;
+        }
         // Get WordPress AJAX URL and nonce from the page (these will be set by WordPress)
         const ajaxUrl = typeof diagnostic_ajax !== 'undefined' ? diagnostic_ajax.ajax_url : '/wp-admin/admin-ajax.php';
         const nonce = typeof diagnostic_ajax !== 'undefined' ? diagnostic_ajax.nonce : '';
@@ -253,9 +259,42 @@
                 
                 // Save categories for later use
                 window.selectedCategorias = categorias;
-                
-                // Show the modal
+                //check if cookie for client_info exists
+                const clientInfoCookie = getCookie('client_info');
+                if (clientInfoCookie) {
+                    // If cookie exists, save the user selected in clitify
+                    const formData = new FormData();
+                    formData.append('action', 'send_clientify_contact');
+                    formData.append('nonce', nonce);           
+                    formData.append('client_info', clientInfoCookie);
+                    formData.append('categorias', JSON.stringify(categorias));
+                    fetch(ajaxUrl, {
+                        method: 'POST',
+                        body: formData,
+                        credentials: 'same-origin',
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            const url = `/bansani/cotizador/?categorias=${categorias.join("+")}`;
+                            window.location.href = url;
+                        } else {
+                            console.error('Error saving data:', data);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+
+                    
+                }
+                else {
+                    console.log("No client info cookie found.");
+                     // Show the modal
                 document.getElementById('cliente-modal').style.display = 'block';
+                }
+                
+               
             });
         }
         
@@ -327,6 +366,12 @@ window.location.href = url;
                     }
                     return response.json();
                 })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Error del servidor: ${response.status}`);
+                    }
+                    return response.json();
+                })
                 .then(result => {
                     if (result.success) {
                      
@@ -346,6 +391,7 @@ window.location.href = url;
                 });
             });
         }
+
         
         // Close modal functionality
         const closeModalButton = document.getElementById('close-modal-btn');
