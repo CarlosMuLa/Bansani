@@ -125,7 +125,7 @@
                 </label>
                 
                 <input type="hidden" name="action" value="send_clientify_contact">
-                <input type="hidden" id="nonce-field" name="nonce_field" value="">
+                <input type="hidden" id="nonce-field" name="nonce" value="">
                 
                 <button type="submit">Continuar</button>
             </form>
@@ -293,6 +293,17 @@ window.location.href = url;
         if (clientForm) {
             clientForm.addEventListener('submit', function(e) {
                 e.preventDefault();
+                // save cookie with client info excluding action and nonce_field
+                const clientData = Object.fromEntries(
+                    [...new FormData(clientForm).entries()]
+                    .filter(([key]) => key !== 'action' && key !== 'nonce_field')
+                );
+
+                // Use the filtered data for the cookie
+                document.cookie = "client_info=" + encodeURIComponent(JSON.stringify(clientData)) + "; path=/";
+                
+                // Use the same filtered data for the console log
+        
                 
                 const formData = new FormData(clientForm);
                 const submitButton = clientForm.querySelector('button[type="submit"]');
@@ -318,7 +329,7 @@ window.location.href = url;
                 })
                 .then(result => {
                     if (result.success) {
-                        console.log('Respuesta Clientify:', result.data.clientify_response);
+                     
                         showNextStepOptions();
                     } else {
                         const errorMessage = result.data?.message || 'Ocurrió un error desconocido.';
