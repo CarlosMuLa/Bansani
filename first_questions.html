@@ -260,13 +260,13 @@
                 // Save categories for later use
                 window.selectedCategorias = categorias;
                 //check if cookie for client_info exists
-                const clientInfoCookie = getCookie('client_info');
+                const clientInfoCookie = getCookie('client_info_json');
                 if (clientInfoCookie) {
                     // If cookie exists, save the user selected in clitify
                     const formData = new FormData();
                     formData.append('action', 'send_clientify_contact');
                     formData.append('nonce', nonce);           
-                    formData.append('client_info', clientInfoCookie);
+                    formData.append('client_info_json', clientInfoCookie);
                     formData.append('categorias', JSON.stringify(categorias));
                     fetch(ajaxUrl, {
                         method: 'POST',
@@ -276,6 +276,7 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
+
                             const url = `/bansani/cotizador/?categorias=${categorias.join("+")}`;
                             window.location.href = url;
                         } else {
@@ -339,7 +340,7 @@ window.location.href = url;
                 );
 
                 // Use the filtered data for the cookie
-                document.cookie = "client_info=" + encodeURIComponent(JSON.stringify(clientData)) + "; path=/";
+                document.cookie = "client_info_json=" + encodeURIComponent(JSON.stringify(clientData)) + "; path=/";
                 
                 // Use the same filtered data for the console log
         
@@ -366,15 +367,8 @@ window.location.href = url;
                     }
                     return response.json();
                 })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`Error del servidor: ${response.status}`);
-                    }
-                    return response.json();
-                })
                 .then(result => {
                     if (result.success) {
-                     
                         showNextStepOptions();
                     } else {
                         const errorMessage = result.data?.message || 'Ocurrió un error desconocido.';
