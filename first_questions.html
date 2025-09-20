@@ -217,7 +217,7 @@
                 </div>
             </div>
             
-            <button type="submit" class="submit-btn">AVANZAR</button>
+            <button id="AVANZAR-btn" type="submit" class="submit-btn">AVANZAR</button>
         </form>
     </div>
 
@@ -262,6 +262,8 @@
                 //check if cookie for client_info exists
                 const clientInfoCookie = getCookie('client_info_json');
                 if (clientInfoCookie) {
+                    const nextBtn = document.getElementById('AVANZAR-btn');
+                    nextBtn.textContent = 'Procesando...';
                     // If cookie exists, save the user selected in clitify
                     const formData = new FormData();
                     formData.append('action', 'send_clientify_contact');

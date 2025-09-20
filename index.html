@@ -1414,16 +1414,18 @@ Objetivo favorecer las condiciones socio-ambientales de la región comprando a p
     
         document.addEventListener('click', function(e) {
         const btn = e.target.closest && e.target.closest('#sendEmailButton');
-        if (!btn) return;
+        if (btn) {
         e.preventDefault();
-        const clientInfoCookie = getCookie('client-info');
+        const clientInfoCookie = getCookie('client_info_json');
         if (clientInfoCookie) {
             const services = window.location.href;
+console.log('HOLA');
+console.log(clientInfoCookie);
 
             const formData = new FormData();
             formData.append('action', 'send_clientify_contact');
             formData.append('nonce', nonce);           
-            formData.append('client_info', clientInfoCookie);
+            formData.append('client_info_json', clientInfoCookie);
             formData.append('services', services);
             fetch(ajaxUrl, {
                     method: 'POST',
@@ -1451,6 +1453,10 @@ Objetivo favorecer las condiciones socio-ambientales de la región comprando a p
                     alert('Hubo un error al enviar la cotización. Por favor, inténtalo de nuevo.');
                 });
         }
+        else
+        {
+            openModal();
+        }
         //get id close-modal-btn
         if (e.target.closest && e.target.closest('#close-modal-btn')){
             e.preventDefault();
@@ -1458,6 +1464,7 @@ Objetivo favorecer las condiciones socio-ambientales de la región comprando a p
             return;
         }
 
+        }
         });
 
         const modal = document.getElementById('client-modal');
@@ -1485,10 +1492,11 @@ Objetivo favorecer las condiciones socio-ambientales de la región comprando a p
                 const clientDataForCookie = 
                 {
                     nombre: form.querySelector('input[name="nombre"]')?.value || '',
-                    email: form.querySelector('input[name="email"]')?.value || '',
+                    correo: form.querySelector('input[name="correo"]')?.value || '',
                     telefono: form.querySelector('input[name="telefono"]')?.value || ''
                 };
-                document.cookie = `client-info=${encodeURIComponent(JSON.stringify(clientDataForCookie))}; path=/; max-age=${60*60*24*30}`;
+                console.log('Datos del cliente para la cookie:', clientDataForCookie);
+                document.cookie = "client_info_json=" + encodeURIComponent(JSON.stringify(clientDataForCookie)) + "; path=/";
                 const formData = new FormData(form);
                 //get selected services url to save params
                 const services = window.location.href;
