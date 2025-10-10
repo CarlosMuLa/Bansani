@@ -931,6 +931,7 @@ Objetivo favorecer las condiciones socio-ambientales de la región comprando a p
 </body>
  </div> <div id="resultado-cotizacion"></div>
 <script>document.addEventListener('DOMContentLoaded', () => {
+    let currentTotalCost = 0;
 
     const ajaxUrl = typeof diagnostic_ajax !== 'undefined' ? diagnostic_ajax.ajax_url : '/wp-admin/admin-ajax.php';
     const nonce = typeof diagnostic_ajax !== 'undefined' ? diagnostic_ajax.nonce : '';
@@ -1324,13 +1325,13 @@ Objetivo favorecer las condiciones socio-ambientales de la región comprando a p
 
         const selectedCount = allServices.length;
         const monthsCount = months.length;
-        const totalCost = monthsCount * MONTHLY_COST;
+        currentTotalCost = monthsCount * MONTHLY_COST;
         const notes = document.createElement('div');
         const totalDiv = document.createElement('div');
         totalDiv.className = 'plan-total';
         totalDiv.innerHTML = `
             <span class="plan-total-label">Costo total del proyecto:</span>
-            <span class="plan-total-value">${new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(totalCost)} MXN + IVA</span>
+            <span class="plan-total-value">${new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(currentTotalCost)} MXN + IVA</span>
             <span class="plan-total-details">(${monthsCount} ${monthsCount === 1 ? 'mes' : 'meses'} de trabajo por ${new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(MONTHLY_COST)} / mensuales)</span>
         `;
         notes.className = 'plan-notes';
@@ -1427,6 +1428,7 @@ console.log(clientInfoCookie);
             formData.append('nonce', nonce);           
             formData.append('client_info_json', clientInfoCookie);
             formData.append('services', services);
+            formData.append('cost', currentTotalCost);
             fetch(ajaxUrl, {
                     method: 'POST',
                     body: formData,
