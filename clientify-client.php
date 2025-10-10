@@ -257,16 +257,11 @@ $clientify_data['custom_fields'][] = array(
 'value' => $servicios
 
 );
-if ($costo_cotizacion>0) {
-    $clientify_data['custom_fields'][] = array(
 
-'field' => "costo",
+$clientify_data['custom_fields'][] = array(
 
-'value' => number_format($costo_cotizacion,2,'.',',')
-
-);
-}
-}
+    'field' => "costo",
+    'value' => number_format($costo_cotizacion,0,'',''));
 
 $clientify_data['tags'] = ['prospecto-bansani-diagnostico'];
 
