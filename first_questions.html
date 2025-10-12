@@ -11,6 +11,52 @@
             background: #fafafa;
             margin: 0;
         }
+        .options {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+            justify-content: center;
+        }
+
+        .options label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: #f0f4f8;
+            border: 1px solid #d1d5db;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #374151;
+            cursor: pointer;
+            line-height: 1.2;
+            transition: all 0.25s ease;
+            user-select: none;
+        }
+
+        .options label:hover {
+            background: #e5e9ef;
+            border-color: #adb5bd;
+        }
+
+        .options label input[type="radio"] {
+            /* Ocultamos el botón de radio original */
+            appearance: none;
+            -webkit-appearance: none;
+            margin: 0;
+            width: 0;
+            height: 0;
+            position: absolute;
+        }
+
+        /* Estilo para la opción seleccionada */
+        .options label:has(input[type="radio"]:checked) {
+            background: #1846a3;
+            color: #fff;
+            border-color: #1846a3;
+            box-shadow: 0 0 0 2px #dbe8ff;
+        }
         .container {
             max-width: 600px;
             margin: 32px auto;
@@ -352,7 +398,7 @@ window.location.href = url;
                 
                 // Add categories to form data
                 if (window.selectedCategorias) {
-                    formData.append('categorias', window.selectedCategorias.join(','));
+                    formData.append('categorias', JSON.stringify(window.selectedCategorias));
                 }
                 
                 submitButton.textContent = 'Enviando...';

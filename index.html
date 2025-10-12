@@ -1419,9 +1419,14 @@ Objetivo favorecer las condiciones socio-ambientales de la región comprando a p
         e.preventDefault();
         const clientInfoCookie = getCookie('client_info_json');
         if (clientInfoCookie) {
+            const nextBtn = document.getElementById('sendEmailButton');
+            if (nextBtn) {
+                nextBtn.textContent = 'Enviando...';
+                nextBtn.disabled = true;
+            }
             const services = window.location.href;
-console.log('HOLA');
-console.log(clientInfoCookie);
+            console.log('HOLA');
+            console.log(clientInfoCookie);
 
             const formData = new FormData();
             formData.append('action', 'send_clientify_contact');
@@ -1505,6 +1510,7 @@ console.log(clientInfoCookie);
                 formData.append('action', 'send_clientify_contact');
                 formData.append('nonce', nonce);  
                 formData.append('services', services);
+                formData.append('cost', currentTotalCost);
                 console.log('Servicios seleccionados:', getSelectedServices());
                 const submitButton = form.querySelector('button[type="submit"]');
 
