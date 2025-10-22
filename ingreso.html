@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido a Bansani</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Montserrat', Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f4f4f4;
+        }
+
+        .interactive-table {
+            width: 90%;
+            max-width: 1200px;
+            height: 60vh;
+            min-height: 400px;
+            border-collapse: collapse;
+            table-layout: fixed; /* Importante para transiciones de ancho */
+        }
+
+        .interactive-table td {
+            width: 50%; /* Ancho inicial igual */
+            text-align: center;
+            color: white;
+            cursor: pointer;
+            position: relative;
+            transition: width 0.7s ease-in-out; /* Transición solo para el ancho */
+            vertical-align: middle;
+        }
+
+        .interactive-table td h2 {
+            display: inline-block; /* Para que el fondo se ajuste al texto */
+            padding: 20px 40px; /* Relleno para crear espacio alrededor del texto */
+            border-radius: 50px; /* Bordes muy redondeados para efecto píldora */
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            margin: 0;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 2;
+            /* Transiciones para el fondo, la sombra y la transformación */
+            transition: background-color 0.5s ease, transform 0.5s ease, box-shadow 0.5s ease;
+            
+            /* --- INICIO DEL CAMBIO: Sombra suave en lugar de grafiti --- */
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        
+        /* Las variables de color para el spray ya no son necesarias */
+        /* .cotizador-cell { --spray-color: #1846a3; } */
+        /* .portal-cell { --spray-color: #7E9E75; } */
+
+        .cotizador-cell h2 { background-color: #1846a3; }
+        .portal-cell h2 { background-color: #7E9E75; }
+
+        /* Eliminamos la capa de superposición ya que no es necesaria */
+        /* .interactive-table td::before { ... } */
+
+        /* Efecto Hover */
+        .interactive-table:hover .cotizador-cell:hover { width: 70%; }
+        .interactive-table:hover .portal-cell:hover { width: 70%; }
+        
+        .interactive-table:hover .cotizador-cell:not(:hover) { width: 30%; }
+        .interactive-table:hover .portal-cell:not(:hover) { width: 30%; }
+
+        .interactive-table td:hover h2 {
+            /* --- INICIO DEL CAMBIO: Animación de Hover limpia --- */
+            transform: scale(1.05) rotate(-1deg); /* Mantenemos el efecto de inclinación */
+            background-color: #333;
+            /* Sombra más pronunciada al hacer hover */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        /* Estilo para las palabras y las letras */
+        .interactive-table h2 .word {
+            display: inline-block; /* Trata cada palabra como un bloque que no se puede romper */
+        }
+        .interactive-table h2 .letter {
+            display: inline-block;
+            transition: colostyles ease-in-out;
+        }
+
+    </style>
+</head>
+<body>
+
+    <table class="interactive-table">
+        <tbody>
+            <tr>
+                <td class="cotizador-cell" onclick="location.href='https://cotizador.bnzero.com/'">
+                    <h2 id="cotizador-title">Cotizador</h2>
+                </td>
+                <td class="portal-cell" onclick="location.href='https://portal.bansani.com/'">
+                    <h2 id="portal-title">Acceso al Portal</h2>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            function setupTextAnimation(cellElement, titleElement, hoverColor) {
+                const originalText = titleElement.innerText;
+
+                // 1. Dividir el texto en palabras
+                const words = originalText.split(' ');
+
+                // 2. Procesar cada palabra para envolver sus letras en spans
+                //    y luego envolver la palabra completa en otro span.
+                titleElement.innerHTML = words.map(word => {
+                    const lettersHtml = word.split('').map(letter => `<span class="letter">${letter}</span>`).join('');
+                    return `<span class="word">${lettersHtml}</span>`;
+                }).join('<span class="letter">&nbsp;</span>'); // 3. Unir las palabras con un espacio
+
+                const letters = titleElement.querySelectorAll('.letter');
+
+                cellElement.addEventListener('mouseenter', () => {
+                    letters.forEach((letter, index) => {
+                        setTimeout(() => {
+                            letter.style.color = hoverColor;
+                        }, index * 50);
+                    });
+                });
+
+                cellElement.addEventListener('mouseleave', () => {
+                    letters.forEach(letter => {
+                        letter.style.color = 'white';
+                    });
+                });
+            }
+
+            const cotizadorCell = document.querySelector('.cotizador-cell');
+            const cotizadorTitle = document.getElementById('cotizador-title');
+            setupTextAnimation(cotizadorCell, cotizadorTitle, '#a7d8ff');
+
+            const portalCell = document.querySelector('.portal-cell');
+            const portalTitle = document.getElementById('portal-title');
+            setupTextAnimation(portalCell, portalTitle, '#d8f8d0');
+        });
+    </script>
+
+</body>
+</html>
